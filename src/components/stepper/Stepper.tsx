@@ -1,8 +1,8 @@
 import React, { useReducer } from "react";
 import { initialState, stepperReducer } from "./reducer";
 import { SET_ATTENDEE_FIELD } from "./actions";
-import { StepperInput } from "../shared/stepperField/StepperField";
-import { InputType } from "./types";
+import { PersonalInfoStep } from "../stepper-steps/personalInfoStep/PersonalInfoStep";
+import { ContactStep } from "../stepper-steps/contactStep/ContactStep";
 
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
@@ -19,41 +19,14 @@ export const Stepper = () => {
 
   return (
     <>
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="firstName"
-        type={InputType.TEXT}
-        placeholder="First name"
-        label="First Name"
-        id="FirstNameID"
-        value={state.attendee.firstName}
+      <PersonalInfoStep
+        attendee={state.attendee}
+        handleInputChange={handleInputChange}
       />
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="lastName"
-        type={InputType.TEXT}
-        placeholder="Last name"
-        label="Last Name"
-        id="LastNameID"
-        value={state.attendee.lastName}
-      />
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="phone"
-        type={InputType.TEXT}
-        placeholder="Phone Number"
-        label="Phone Number"
-        id="PhoneNumberID"
-        value={state.attendee.phone}
-      />
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="email"
-        type={InputType.TEXT}
-        placeholder="Email"
-        label="Email"
-        id="EmailID"
-        value={state.attendee.email}
+
+      <ContactStep
+        attendee={state.attendee}
+        handleInputChange={handleInputChange}
       />
     </>
   );

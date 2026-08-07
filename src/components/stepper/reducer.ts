@@ -28,7 +28,7 @@ interface TechnoEvent {
   tiers: EventTier[];
 }
 
-interface State {
+export interface State {
   events: TechnoEvent[];
   selection: {
     eventId: string;
