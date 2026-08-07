@@ -1,4 +1,10 @@
-import { SET_FILED } from "./actions";
+import {
+  NEXT_STEP,
+  PREV_STEP,
+  SET_ATTENDEE_FIELD,
+  SET_ORDER_FIELD,
+  SET_SELECTION,
+} from "./actions";
 
 interface Dj {
   name: string;
@@ -171,14 +177,55 @@ export const initialState: State = {
 };
 export const stepperReducer = (state: State, action: any) => {
   switch (action.type) {
-    case SET_FILED: {
-      return {
+    case SET_ATTENDEE_FIELD: {
+      const newState = {
         ...state,
-        [action.payload.section]: {
-          ...(state as any)[action.payload.section],
+        attendee: {
+          ...state.attendee,
           [action.payload.name]: action.payload.value,
         },
       };
+      return newState;
+    }
+    case SET_ORDER_FIELD: {
+      const newState = {
+        ...state,
+        order: {
+          ...state.order,
+          [action.payload.name]: action.payload.value,
+        },
+      };
+      return newState;
+    }
+    case SET_SELECTION: {
+      const newState = {
+        ...state,
+        selection: {
+          ...state.selection,
+          [action.payload.name]: action.payload.value,
+        },
+      };
+      return newState;
+    }
+    case NEXT_STEP: {
+      if (state.currentStep === state.totalSteps) {
+        return state;
+      } else {
+        return {
+          ...state,
+          currentStep: state.currentStep + 1,
+        };
+      }
+    }
+    case PREV_STEP: {
+      if (state.currentStep === 1) {
+        return { ...state };
+      } else {
+        return {
+          ...state,
+          currentStep: state.currentStep - 1,
+        };
+      }
     }
     default:
       return state;
