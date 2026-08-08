@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
 import { initialState, stepperReducer } from "./reducer";
-import { SET_ATTENDEE_FIELD } from "./actions";
+import { SET_ATTENDEE_FIELD, SET_SELECTION } from "./actions";
 import { PersonalInfoStep } from "../stepper-steps/personalInfoStep/PersonalInfoStep";
 import { ContactStep } from "../stepper-steps/contactStep/ContactStep";
-
+import { EventTierStep } from "../stepper-steps/eventTierStep/EventTierStep";
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
 
@@ -16,6 +16,25 @@ export const Stepper = () => {
       },
     });
   };
+  const handleEventSelect = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch({
+      type: SET_SELECTION,
+      payload: {
+        name: "eventId",
+        value: e.currentTarget.id,
+      },
+    });
+  };
+
+  const handleSelectTier = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch({
+      type: SET_SELECTION,
+      payload: {
+        name: "tierId",
+        value: e.currentTarget.id,
+      },
+    });
+  };
 
   return (
     <>
@@ -23,10 +42,16 @@ export const Stepper = () => {
         attendee={state.attendee}
         handleInputChange={handleInputChange}
       />
-
       <ContactStep
         attendee={state.attendee}
         handleInputChange={handleInputChange}
+      />
+
+      <EventTierStep
+        events={state.events}
+        selection={state.selection}
+        handleEventSelection={handleEventSelect}
+        handleTierSelection={handleSelectTier}
       />
     </>
   );
