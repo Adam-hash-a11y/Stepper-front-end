@@ -4,6 +4,7 @@ import {
   SET_ATTENDEE_FIELD,
   SET_ORDER_FIELD,
   SET_SELECTION,
+  TOGGLE_ADDON,
 } from "./actions";
 
 interface Dj {
@@ -20,6 +21,13 @@ interface EventTier {
   remaining: number;
 }
 
+interface Addon {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+}
+
 interface TechnoEvent {
   id: string;
   name: string;
@@ -30,6 +38,7 @@ interface TechnoEvent {
 
 export interface State {
   events: TechnoEvent[];
+  addons: Addon[];
   selection: {
     eventId: string;
     tierId: string;
@@ -145,7 +154,32 @@ export const initialState: State = {
       ],
     },
   ],
-
+  addons: [
+    {
+      id: "vip-tent",
+      name: "VIP Tent Access",
+      description: "Chill in a private shaded tent with your own bar",
+      price: 45,
+    },
+    {
+      id: "festival-tattoo",
+      name: "Festival Tattoo",
+      description: "Get inked by a resident artist, festival-exclusive design",
+      price: 25,
+    },
+    {
+      id: "glow-bracelet",
+      name: "LED Glow Bracelet",
+      description: "Light-up bracelet synced to the set, yours to keep",
+      price: 15,
+    },
+    {
+      id: "shuttle-pass",
+      name: "Shuttle Pass",
+      description: "Unlimited rides between the campsite and main stage",
+      price: 20,
+    },
+  ],
   selection: {
     eventId: "",
     tierId: "",
@@ -203,6 +237,23 @@ export const stepperReducer = (state: State, action: any) => {
         selection: {
           ...state.selection,
           [action.payload.name]: action.payload.value,
+        },
+      };
+      return newState;
+    }
+
+    case TOGGLE_ADDON: {
+      const addedAddon = action.payload.addonId;
+      const AddonsArray = state.order.addons;
+      const updateAddonArray = AddonsArray.includes(addedAddon)
+        ? AddonsArray.filter((addon) => addon !== addedAddon)
+        : [...AddonsArray, addedAddon];
+
+      const newState = {
+        ...state,
+        order: {
+          ...state.order,
+          addons: updateAddonArray,
         },
       };
       return newState;
