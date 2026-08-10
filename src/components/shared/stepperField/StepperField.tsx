@@ -7,7 +7,7 @@ interface Props {
   handleFiledChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   id: string;
-  value: string;
+  value: string | number;
 }
 
 export const StepperInput: React.FunctionComponent<Props> = ({
