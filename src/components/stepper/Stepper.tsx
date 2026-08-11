@@ -1,11 +1,18 @@
 import React, { useReducer } from "react";
 import { initialState, stepperReducer } from "./reducer";
-import { SET_ATTENDEE_FIELD } from "./actions";
-import { StepperInput } from "../shared/stepperField/StepperField";
-import { InputType } from "./types";
-
+import {
+  SET_ATTENDEE_FIELD,
+  SET_ORDER_FIELD,
+  SET_SELECTION,
+  TOGGLE_ADDON,
+} from "./actions";
+import { PersonalInfoStep } from "../stepper-steps/personalInfoStep/PersonalInfoStep";
+import { ContactStep } from "../stepper-steps/contactStep/ContactStep";
+import { EventTierStep } from "../stepper-steps/eventTierStep/EventTierStep";
+import { OrderStep } from "../stepper-steps/orderStep/OrderStep";
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
+  console.log(state);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -17,43 +24,69 @@ export const Stepper = () => {
     });
   };
 
+  const handleTicketQuantityChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      type: SET_ORDER_FIELD,
+      payload: {
+        name: e.target.name,
+        value: e.target.value,
+      },
+    });
+  };
+
+  const handleAddonCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: TOGGLE_ADDON,
+      payload: {
+        addonId: e.target.value,
+      },
+    });
+  };
+  const handleEventSelect = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch({
+      type: SET_SELECTION,
+      payload: {
+        name: "eventId",
+        value: e.currentTarget.id,
+      },
+    });
+  };
+
+  const handleSelectTier = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch({
+      type: SET_SELECTION,
+      payload: {
+        name: "tierId",
+        value: e.currentTarget.id,
+      },
+    });
+  };
+
   return (
     <>
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="firstName"
-        type={InputType.TEXT}
-        placeholder="First name"
-        label="First Name"
-        id="FirstNameID"
-        value={state.attendee.firstName}
+      <PersonalInfoStep
+        attendee={state.attendee}
+        handleInputChange={handleInputChange}
       />
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="lastName"
-        type={InputType.TEXT}
-        placeholder="Last name"
-        label="Last Name"
-        id="LastNameID"
-        value={state.attendee.lastName}
+      <ContactStep
+        attendee={state.attendee}
+        handleInputChange={handleInputChange}
       />
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="phone"
-        type={InputType.TEXT}
-        placeholder="Phone Number"
-        label="Phone Number"
-        id="PhoneNumberID"
-        value={state.attendee.phone}
+
+      <EventTierStep
+        events={state.events}
+        selection={state.selection}
+        handleEventSelection={handleEventSelect}
+        handleTierSelection={handleSelectTier}
       />
-      <StepperInput
-        handleFiledChange={handleInputChange}
-        name="email"
-        type={InputType.TEXT}
-        placeholder="Email"
-        label="Email"
-        id="EmailID"
-        value={state.attendee.email}
+
+      <OrderStep
+        order={state.order}
+        handleTicketQuantity={handleTicketQuantityChange}
+        addons={state.addons}
+        handleCheckBoxToggle={handleAddonCheckBox}
       />
     </>
   );
