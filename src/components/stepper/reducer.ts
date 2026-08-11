@@ -4,6 +4,8 @@ import {
   SET_ATTENDEE_FIELD,
   SET_ORDER_FIELD,
   SET_SELECTION,
+  START_OVER,
+  SUBMIT_BOOKING,
   TOGGLE_ADDON,
 } from "./actions";
 
@@ -277,6 +279,15 @@ export const stepperReducer = (state: State, action: any) => {
           currentStep: state.currentStep - 1,
         };
       }
+    }
+    case SUBMIT_BOOKING: {
+      return {
+        ...state,
+        submitted: true,
+      };
+    }
+    case START_OVER: {
+      return initialState;
     }
     default:
       return state;
