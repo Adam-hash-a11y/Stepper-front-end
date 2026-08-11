@@ -1,6 +1,8 @@
 import React, { useReducer } from "react";
 import { initialState, stepperReducer } from "./reducer";
 import {
+  NEXT_STEP,
+  PREV_STEP,
   SET_ATTENDEE_FIELD,
   SET_ORDER_FIELD,
   SET_SELECTION,
@@ -10,6 +12,7 @@ import { PersonalInfoStep } from "../stepper-steps/personalInfoStep/PersonalInfo
 import { ContactStep } from "../stepper-steps/contactStep/ContactStep";
 import { EventTierStep } from "../stepper-steps/eventTierStep/EventTierStep";
 import { OrderStep } from "../stepper-steps/orderStep/OrderStep";
+import { StepperButton } from "../shared/stepperButton/StepperButton";
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   console.log(state);
@@ -64,30 +67,54 @@ export const Stepper = () => {
     });
   };
 
+  const handleNextStep = () => {
+    dispatch({ type: NEXT_STEP });
+  };
+  const handlePrevStep = () => {
+    dispatch({ type: PREV_STEP });
+  };
+
   return (
     <>
-      <PersonalInfoStep
-        attendee={state.attendee}
-        handleInputChange={handleInputChange}
-      />
-      <ContactStep
-        attendee={state.attendee}
-        handleInputChange={handleInputChange}
-      />
+      {state.currentStep === 1 && (
+        <PersonalInfoStep
+          attendee={state.attendee}
+          handleInputChange={handleInputChange}
+        />
+      )}
+      {state.currentStep === 2 && (
+        <ContactStep
+          attendee={state.attendee}
+          handleInputChange={handleInputChange}
+        />
+      )}
 
-      <EventTierStep
-        events={state.events}
-        selection={state.selection}
-        handleEventSelection={handleEventSelect}
-        handleTierSelection={handleSelectTier}
-      />
+      {state.currentStep === 3 && (
+        <EventTierStep
+          events={state.events}
+          selection={state.selection}
+          handleEventSelection={handleEventSelect}
+          handleTierSelection={handleSelectTier}
+        />
+      )}
+      {state.currentStep === 4 && (
+        <OrderStep
+          order={state.order}
+          handleTicketQuantity={handleTicketQuantityChange}
+          addons={state.addons}
+          handleCheckBoxToggle={handleAddonCheckBox}
+        />
+      )}
 
-      <OrderStep
-        order={state.order}
-        handleTicketQuantity={handleTicketQuantityChange}
-        addons={state.addons}
-        handleCheckBoxToggle={handleAddonCheckBox}
-      />
+      {state.currentStep === 4 ? (
+        <StepperButton handleButton={handleNextStep} label="Validate" />
+      ) : (
+        <StepperButton handleButton={handleNextStep} label="Next" />
+      )}  
+
+      {state.currentStep != 1 && (
+        <StepperButton handleButton={handlePrevStep} label="Previous" />
+      )}
     </>
   );
 };
