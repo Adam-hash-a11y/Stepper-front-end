@@ -87,8 +87,8 @@ export const Stepper = () => {
     setIsModalOpen(false);
   };
 
-  const handleConfirmBooking = () => {
-    dispatch({ type: SUBMIT_BOOKING });
+  const handleConfirmBooking = (totalPrice: number) => {
+    dispatch({ type: SUBMIT_BOOKING, payload: { totalPrice } });
     setIsModalOpen(false);
   };
   const handleStartOver = () => {
@@ -141,7 +141,6 @@ export const Stepper = () => {
               {isModalOpen && (
                 <CheckoutModal
                   handleClose={handleCloseModal}
-                  handleValidate={handleConfirmBooking}
                   isOpen={isModalOpen}
                 >
                   <BookingSummary
@@ -150,6 +149,7 @@ export const Stepper = () => {
                     addons={state.addons}
                     selection={state.selection}
                     order={state.order}
+                    handleValidate={handleConfirmBooking}
                   />
                 </CheckoutModal>
               )}
