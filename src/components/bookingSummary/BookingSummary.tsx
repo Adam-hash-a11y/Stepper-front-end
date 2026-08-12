@@ -1,5 +1,6 @@
 import type React from "react";
 import type { State } from "../stepper/reducer";
+import { StepperButton } from "../shared/stepperButton/StepperButton";
 
 interface Props {
   attendee: State["attendee"];
@@ -7,6 +8,7 @@ interface Props {
   addons: State["addons"];
   selection: State["selection"];
   order: State["order"];
+  handleValidate: (totalPrice: number) => void;
 }
 
 export const BookingSummary: React.FunctionComponent<Props> = ({
@@ -15,6 +17,7 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
   addons,
   selection,
   order,
+  handleValidate,
 }) => {
   const selectedEvent = events.find((event) => event.id === selection.eventId);
   const selectedTier = selectedEvent?.tiers.find(
@@ -58,6 +61,10 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
         </p>
       ))}
       <p>Total price is : {totalPrice} $</p>
+      <StepperButton
+        handleButton={() => handleValidate(totalPrice)}
+        label="Confirm"
+      />
     </div>
   );
 };
