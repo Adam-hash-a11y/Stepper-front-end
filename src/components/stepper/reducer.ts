@@ -283,6 +283,7 @@ export const stepperReducer = (state: State, action: any) => {
     case SUBMIT_BOOKING: {
       return {
         ...state,
+        totalPrice: action.payload.totalPrice,
         submitted: true,
       };
     }
