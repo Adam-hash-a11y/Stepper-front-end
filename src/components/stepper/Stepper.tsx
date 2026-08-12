@@ -17,6 +17,7 @@ import { OrderStep } from "../stepper-steps/orderStep/OrderStep";
 import { StepperButton } from "../shared/stepperButton/StepperButton";
 import { CheckoutModal } from "../shared/checkoutModal/CheckoutModal";
 import { BookingSummary } from "../bookingSummary/BookingSummary";
+import { ProgressBar } from "../progressBar/ProgressBar";
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -103,6 +104,7 @@ export const Stepper = () => {
         </>
       ) : (
         <>
+          <ProgressBar step={state.currentStep} />
           {state.currentStep === 1 && (
             <PersonalInfoStep
               attendee={state.attendee}
