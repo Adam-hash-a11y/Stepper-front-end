@@ -5,7 +5,6 @@ import { StepperButton } from "../stepperButton/StepperButton";
 interface Props {
   isOpen: boolean;
   handleClose: () => void;
-  handleValidate?: () => void;
   children: React.ReactNode;
 }
 
@@ -33,7 +32,6 @@ const ModalBox = styled.section`
 export const CheckoutModal: React.FunctionComponent<Props> = ({
   isOpen,
   handleClose,
-  handleValidate,
   children,
 }) => {
   if (!isOpen) {
@@ -44,10 +42,6 @@ export const CheckoutModal: React.FunctionComponent<Props> = ({
         <ModalBox>
           <p>Are you sure you want to proceed ?</p>
           {children}
-          <StepperButton
-            handleButton={handleValidate}
-            label="Confirm"
-          ></StepperButton>
           <StepperButton
             handleButton={handleClose}
             label="Cancel"
