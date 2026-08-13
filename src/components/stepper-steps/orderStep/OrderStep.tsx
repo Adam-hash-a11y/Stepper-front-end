@@ -2,12 +2,16 @@ import type React from "react";
 import type { State } from "../../stepper/reducer";
 import { StepperInput } from "../../shared/stepperField/StepperField";
 import { InputType } from "../../stepper/types";
+import { FormInputError } from "../../shared/inputError/InputError";
 
 interface Props {
   order: State["order"];
   addons: State["addons"];
   handleCheckBoxToggle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleTicketQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  touched: State["touched"];
+  errors: State["errors"];
 }
 
 export const OrderStep: React.FunctionComponent<Props> = ({
@@ -15,6 +19,9 @@ export const OrderStep: React.FunctionComponent<Props> = ({
   addons,
   handleTicketQuantity,
   handleCheckBoxToggle,
+  handleBlur,
+  touched,
+  errors,
 }) => {
   return (
     <>
@@ -26,7 +33,12 @@ export const OrderStep: React.FunctionComponent<Props> = ({
         label="Quantity"
         id="QuantityID"
         value={order.quantity}
+        handleBlur={handleBlur}
       />
+      {touched.quantity && errors.quantity && (
+        <FormInputError error={errors.quantity} />
+      )}
+      <h1>---Optional Addons---</h1>
       {addons.map((addon) => {
         return (
           <div key={addon.id}>
