@@ -6,6 +6,7 @@ import {
   SET_ATTENDEE_FIELD,
   SET_ORDER_FIELD,
   SET_SELECTION,
+  SET_TOUCHED,
   START_OVER,
   SUBMIT_BOOKING,
   TOGGLE_ADDON,
@@ -94,6 +95,9 @@ export const Stepper = () => {
   const handleStartOver = () => {
     dispatch({ type: START_OVER });
   };
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    dispatch({ type: SET_TOUCHED, field: e.target.name });
+  };
 
   return (
     <>
@@ -109,12 +113,18 @@ export const Stepper = () => {
             <PersonalInfoStep
               attendee={state.attendee}
               handleInputChange={handleInputChange}
+              handleBlur={handleBlur}
+              touched={state.touched}
+              errors={state.errors}
             />
           )}
           {state.currentStep === 2 && (
             <ContactStep
               attendee={state.attendee}
               handleInputChange={handleInputChange}
+              handleBlur={handleBlur}
+              touched={state.touched}
+              errors={state.errors}
             />
           )}
 
@@ -132,12 +142,19 @@ export const Stepper = () => {
               handleTicketQuantity={handleTicketQuantityChange}
               addons={state.addons}
               handleCheckBoxToggle={handleAddonCheckBox}
+              handleBlur={handleBlur}
+              touched={state.touched}
+              errors={state.errors}
             />
           )}
 
           {state.currentStep === 4 ? (
             <>
-              <StepperButton handleButton={handleOpenModal} label="Checkout" />
+              <StepperButton
+                handleButton={handleOpenModal}
+                disabled={state.disabled}
+                label="Checkout"
+              />
               {isModalOpen && (
                 <CheckoutModal
                   handleClose={handleCloseModal}
@@ -155,7 +172,11 @@ export const Stepper = () => {
               )}
             </>
           ) : (
-            <StepperButton handleButton={handleNextStep} label="Next" />
+            <StepperButton
+              handleButton={handleNextStep}
+              label="Next"
+              disabled={state.disabled}
+            />
           )}
 
           {state.currentStep !== 1 && (
