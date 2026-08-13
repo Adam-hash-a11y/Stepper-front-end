@@ -134,6 +134,8 @@ export const Stepper = () => {
               selection={state.selection}
               handleEventSelection={handleEventSelect}
               handleTierSelection={handleSelectTier}
+              touched={state.touched}
+              errors={state.errors}
             />
           )}
           {state.currentStep === 4 && (
