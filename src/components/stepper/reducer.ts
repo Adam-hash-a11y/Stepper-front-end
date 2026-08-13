@@ -1,9 +1,17 @@
 import {
+  isValidFirstName,
+  isValidLastName,
+  isValidEmail,
+  isValidPhoneNumber,
+  isValidQuantity,
+} from "../../helpers/stepperForm.validator";
+import {
   NEXT_STEP,
   PREV_STEP,
   SET_ATTENDEE_FIELD,
   SET_ORDER_FIELD,
   SET_SELECTION,
+  SET_TOUCHED,
   START_OVER,
   SUBMIT_BOOKING,
   TOGGLE_ADDON,
@@ -55,11 +63,25 @@ export interface State {
     quantity: number;
     addons: string[];
   };
+  touched: {
+    firstName: boolean;
+    lastName: boolean;
+    email: boolean;
+    phone: boolean;
+    quantity: boolean;
+  };
+  errors: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    quantity: string;
+  };
+  disabled: boolean;
   totalPrice: number;
   bookingId: string;
   currentStep: number;
   totalSteps: number;
-  errors: Record<string, string>;
   submitted: boolean;
 }
 
@@ -195,7 +217,7 @@ export const initialState: State = {
   },
 
   order: {
-    quantity: 1,
+    quantity: 0,
     addons: [],
   },
 
@@ -206,9 +228,22 @@ export const initialState: State = {
   currentStep: 1,
 
   totalSteps: 4,
+  touched: {
+    firstName: false,
+    lastName: false,
+    email: false,
+    phone: false,
+    quantity: false,
+  },
+  errors: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    quantity: "",
+  },
 
-  errors: {},
-
+  disabled: true,
   submitted: false,
 };
 export const stepperReducer = (state: State, action: any) => {
@@ -221,7 +256,23 @@ export const stepperReducer = (state: State, action: any) => {
           [action.payload.name]: action.payload.value,
         },
       };
-      return newState;
+
+      const newErrors = {
+        ...state.errors,
+        firstName: isValidFirstName(newState.attendee.firstName),
+        lastName: isValidLastName(newState.attendee.lastName),
+        email: isValidEmail(newState.attendee.email),
+        phone: isValidPhoneNumber(newState.attendee.phone),
+      };
+
+      return {
+        ...newState,
+        errors: newErrors,
+        disabled:
+          state.currentStep === 1
+            ? newErrors.firstName !== "" || newErrors.lastName !== ""
+            : newErrors.email !== "" || newErrors.phone !== "",
+      };
     }
     case SET_ORDER_FIELD: {
       const newState = {
@@ -231,17 +282,41 @@ export const stepperReducer = (state: State, action: any) => {
           [action.payload.name]: action.payload.value,
         },
       };
-      return newState;
+
+      const newErrors = {
+        ...state.errors,
+        quantity: isValidQuantity(Number(newState.order.quantity)),
+      };
+
+      return {
+        ...newState,
+        errors: newErrors,
+        disabled: newErrors.quantity !== "",
+      };
     }
     case SET_SELECTION: {
+      let newSelection = {
+        ...state.selection,
+        [action.payload.name]: action.payload.value,
+      };
+
+      if (
+        action.payload.name === "eventId" &&
+        action.payload.value !== state.selection.eventId
+      ) {
+        newSelection.tierId = "";
+      }
+
       const newState = {
         ...state,
-        selection: {
-          ...state.selection,
-          [action.payload.name]: action.payload.value,
-        },
+        selection: newSelection,
       };
-      return newState;
+
+      return {
+        ...newState,
+        disabled:
+          newState.selection.eventId === "" || newState.selection.tierId === "",
+      };
     }
 
     case TOGGLE_ADDON: {
@@ -263,22 +338,44 @@ export const stepperReducer = (state: State, action: any) => {
     case NEXT_STEP: {
       if (state.currentStep === state.totalSteps) {
         return state;
-      } else {
-        return {
-          ...state,
-          currentStep: state.currentStep + 1,
-        };
       }
+      const newStep = state.currentStep + 1;
+      return {
+        ...state,
+        currentStep: newStep,
+        disabled:
+          newStep === 1
+            ? state.errors.firstName !== "" || state.errors.lastName !== ""
+            : newStep === 2
+              ? state.errors.email !== "" || state.errors.phone !== ""
+              : newStep === 3
+                ? state.selection.eventId === "" ||
+                  state.selection.tierId === ""
+                : newStep === 4
+                  ? true
+                  : false,
+      };
     }
     case PREV_STEP: {
       if (state.currentStep === 1) {
-        return { ...state };
-      } else {
-        return {
-          ...state,
-          currentStep: state.currentStep - 1,
-        };
+        return state;
       }
+      const newStep = state.currentStep - 1;
+      return {
+        ...state,
+        currentStep: newStep,
+        disabled:
+          newStep === 1
+            ? state.errors.firstName !== "" || state.errors.lastName !== ""
+            : newStep === 2
+              ? state.errors.email !== "" || state.errors.phone !== ""
+              : newStep === 3
+                ? state.selection.eventId === "" ||
+                  state.selection.tierId === ""
+                : newStep === 4
+                  ? state.errors.quantity !== ""
+                  : false,
+      };
     }
     case SUBMIT_BOOKING: {
       return {
@@ -289,6 +386,30 @@ export const stepperReducer = (state: State, action: any) => {
     }
     case START_OVER: {
       return initialState;
+    }
+    case SET_TOUCHED: {
+      const newTouched = { ...state.touched, [action.field]: true };
+      const newErrors = { ...state.errors };
+
+      switch (action.field) {
+        case "firstName":
+          newErrors.firstName = isValidFirstName(state.attendee.firstName);
+          break;
+        case "lastName":
+          newErrors.lastName = isValidLastName(state.attendee.lastName);
+          break;
+        case "email":
+          newErrors.email = isValidEmail(state.attendee.email);
+          break;
+        case "phone":
+          newErrors.phone = isValidPhoneNumber(state.attendee.phone);
+          break;
+        case "quantity":
+          newErrors.quantity = isValidQuantity(Number(state.order.quantity));
+          break;
+      }
+
+      return { ...state, touched: newTouched, errors: newErrors };
     }
     default:
       return state;
