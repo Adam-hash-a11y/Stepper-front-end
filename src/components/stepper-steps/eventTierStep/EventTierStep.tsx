@@ -1,11 +1,14 @@
 import type React from "react";
 import type { State } from "../../stepper/reducer";
+import { FormInputError } from "../../shared/inputError/InputError";
 
 interface Props {
   selection: State["selection"];
   events: State["events"];
   handleEventSelection: (e: React.MouseEvent<HTMLDivElement>) => void;
   handleTierSelection: (e: React.MouseEvent<HTMLDivElement>) => void;
+  touched: State["touched"];
+  errors: State["errors"];
 }
 
 export const EventTierStep: React.FunctionComponent<Props> = ({
@@ -13,6 +16,8 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
   selection,
   handleEventSelection,
   handleTierSelection,
+  touched,
+  errors,
 }) => {
   const selectedEvent = events.find((event) => event.id === selection.eventId);
 
@@ -36,6 +41,9 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
           </div>
         );
       })}
+      {touched.eventId && errors.eventId && (
+        <FormInputError error={errors.eventId} />
+      )}
       <div>---Event Pass Tiers---</div>
       {selectedEvent &&
         selectedEvent.tiers.map((tier) => {
@@ -48,6 +56,9 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
             </div>
           );
         })}
+      {touched.tierId && errors.tierId && (
+        <FormInputError error={errors.tierId} />
+      )}
     </>
   );
 };
