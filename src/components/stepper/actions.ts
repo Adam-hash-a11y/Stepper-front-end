@@ -6,3 +6,4 @@ export const PREV_STEP = "prev_step";
 export const TOGGLE_ADDON = "toggle_addon";
 export const SUBMIT_BOOKING = "submit_booking";
 export const START_OVER = "start_over";
+export const SET_TOUCHED = "set_touched";
