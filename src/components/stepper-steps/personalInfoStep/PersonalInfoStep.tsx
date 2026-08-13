@@ -2,15 +2,22 @@ import type React from "react";
 import { StepperInput } from "../../shared/stepperField/StepperField";
 import type { State } from "../../stepper/reducer";
 import { InputType } from "../../stepper/types";
+import { FormInputError } from "../../shared/inputError/InputError";
 
 interface Props {
   attendee: State["attendee"];
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  touched: State["touched"];
+  errors: State["errors"];
 }
 
 export const PersonalInfoStep: React.FunctionComponent<Props> = ({
   attendee,
   handleInputChange,
+  handleBlur,
+  touched,
+  errors,
 }) => {
   return (
     <>
@@ -22,7 +29,11 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
         label="First Name"
         id="FirstNameID"
         value={attendee.firstName}
+        handleBlur={handleBlur}
       />
+      {touched.firstName && errors.firstName && (
+        <FormInputError error={errors.firstName} />
+      )}
       <StepperInput
         handleFiledChange={handleInputChange}
         name="lastName"
@@ -31,7 +42,11 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
         label="Last Name"
         id="LastNameID"
         value={attendee.lastName}
+        handleBlur={handleBlur}
       />
+      {touched.lastName && errors.lastName && (
+        <FormInputError error={errors.lastName} />
+      )}
     </>
   );
 };
