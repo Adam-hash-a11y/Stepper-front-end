@@ -5,6 +5,7 @@ interface Props {
   type: InputType;
   placeholder: string;
   handleFiledChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   label: string;
   id: string;
   value: string | number;
@@ -15,6 +16,7 @@ export const StepperInput: React.FunctionComponent<Props> = ({
   type,
   placeholder,
   handleFiledChange,
+  handleBlur,
   label,
   id,
   value,
@@ -29,6 +31,7 @@ export const StepperInput: React.FunctionComponent<Props> = ({
         placeholder={placeholder}
         id={id}
         onChange={handleFiledChange}
+        onBlur={handleBlur}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import type React from "react";
 import type { State } from "../stepper/reducer";
 import { StepperButton } from "../shared/stepperButton/StepperButton";
+import styled from "styled-components";
 
 interface Props {
   attendee: State["attendee"];
@@ -10,6 +11,10 @@ interface Props {
   order: State["order"];
   handleValidate: (totalPrice: number) => void;
 }
+
+const SectionTitle = styled.h2`
+  color: black;
+`;
 
 export const BookingSummary: React.FunctionComponent<Props> = ({
   attendee,
@@ -36,25 +41,25 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
 
   return (
     <div>
-      <h2>Attendee</h2>
+      <SectionTitle>Attendee</SectionTitle>
       <p>
         {attendee.firstName} {attendee.lastName}
       </p>
       <p>{attendee.email}</p>
       <p>{attendee.phone}</p>
 
-      <h2>Event</h2>
+      <SectionTitle>Event</SectionTitle>
       <p>{selectedEvent?.name}</p>
       <p>{selectedEvent?.dateRange}</p>
 
-      <h2>Tier</h2>
+      <SectionTitle>Tier</SectionTitle>
       <p>{selectedTier?.name}</p>
       <p>${selectedTier?.price}</p>
 
-      <h2>Order</h2>
+      <SectionTitle>Order</SectionTitle>
       <p>Quantity: {order.quantity}</p>
 
-      <h2>Addons</h2>
+      <SectionTitle>Addons</SectionTitle>
       {selectedAddons.map((addon) => (
         <p key={addon.id}>
           {addon.name} — ${addon.price}
