@@ -1,10 +1,8 @@
 import type React from "react";
 import styled from "styled-components";
-import { StepperButton } from "../stepperButton/StepperButton";
 
 interface Props {
   isOpen: boolean;
-  handleClose: () => void;
   children: React.ReactNode;
 }
 
@@ -14,7 +12,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,32 +20,54 @@ const Overlay = styled.div`
 `;
 
 const ModalBox = styled.section`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  background-color: #0a0a0a;
+  border: 1px solid #7c3aed;
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed #0a0a0a;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #7c3aed;
+    border-radius: 3px;
+  }
+`;
+
+const ConfirmText = styled.p`
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 24px;
 `;
 
 export const CheckoutModal: React.FunctionComponent<Props> = ({
   isOpen,
-  handleClose,
   children,
 }) => {
   if (!isOpen) {
     return null;
-  } else {
-    return (
-      <Overlay>
-        <ModalBox>
-          <p>Are you sure you want to proceed ?</p>
-          {children}
-          <StepperButton
-            handleButton={handleClose}
-            label="Cancel"
-          ></StepperButton>
-        </ModalBox>
-      </Overlay>
-    );
   }
+
+  return (
+    <Overlay>
+      <ModalBox>
+        <ConfirmText>Are you sure you want to proceed?</ConfirmText>
+        {children}
+      </ModalBox>
+    </Overlay>
+  );
 };
