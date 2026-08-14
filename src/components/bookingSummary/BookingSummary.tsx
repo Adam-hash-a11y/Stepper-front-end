@@ -10,10 +10,70 @@ interface Props {
   selection: State["selection"];
   order: State["order"];
   handleValidate: (totalPrice: number) => void;
+  handleClose: () => void;
 }
 
-const SectionTitle = styled.h2`
-  color: black;
+const SectionTitle = styled.h3`
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin: 20px 0 10px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+`;
+
+const Divider = styled.div`
+  border-top: 1px solid #222222;
+  margin: 16px 0;
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+`;
+
+const Label = styled.span`
+  font-size: 13px;
+  color: #aaaaaa;
+`;
+
+const Value = styled.span`
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+`;
+
+const TotalRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 24px;
+`;
+
+const TotalLabel = styled.span`
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+`;
+
+const TotalPrice = styled.span`
+  font-size: 24px;
+  font-weight: 900;
+  color: #7c3aed;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  gap: 16px;
 `;
 
 export const BookingSummary: React.FunctionComponent<Props> = ({
@@ -23,6 +83,7 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
   selection,
   order,
   handleValidate,
+  handleClose,
 }) => {
   const selectedEvent = events.find((event) => event.id === selection.eventId);
   const selectedTier = selectedEvent?.tiers.find(
@@ -42,34 +103,76 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
   return (
     <div>
       <SectionTitle>Attendee</SectionTitle>
-      <p>
-        {attendee.firstName} {attendee.lastName}
-      </p>
-      <p>{attendee.email}</p>
-      <p>{attendee.phone}</p>
+      <Row>
+        <Label>Name</Label>
+        <Value>
+          {attendee.firstName} {attendee.lastName}
+        </Value>
+      </Row>
+      <Row>
+        <Label>Email</Label>
+        <Value>{attendee.email}</Value>
+      </Row>
+      <Row>
+        <Label>Phone</Label>
+        <Value>{attendee.phone}</Value>
+      </Row>
 
-      <SectionTitle>Event</SectionTitle>
-      <p>{selectedEvent?.name}</p>
-      <p>{selectedEvent?.dateRange}</p>
+      <Divider />
 
-      <SectionTitle>Tier</SectionTitle>
-      <p>{selectedTier?.name}</p>
-      <p>${selectedTier?.price}</p>
+      <SectionTitle>Event & Tier</SectionTitle>
+      <Row>
+        <Label>Event</Label>
+        <Value>{selectedEvent?.name}</Value>
+      </Row>
+      <Row>
+        <Label>Dates</Label>
+        <Value>{selectedEvent?.dateRange}</Value>
+      </Row>
+      <Row>
+        <Label>Tier</Label>
+        <Value>{selectedTier?.name}</Value>
+      </Row>
+      <Row>
+        <Label>Tier Price</Label>
+        <Value>€{selectedTier?.price}.00</Value>
+      </Row>
+      <Row>
+        <Label>Quantity</Label>
+        <Value>{order.quantity}</Value>
+      </Row>
 
-      <SectionTitle>Order</SectionTitle>
-      <p>Quantity: {order.quantity}</p>
+      {selectedAddons.length > 0 && (
+        <>
+          <Divider />
+          <SectionTitle>Add-Ons</SectionTitle>
+          {selectedAddons.map((addon) => (
+            <Row key={addon.id}>
+              <Label>{addon.name}</Label>
+              <Value>€{addon.price}.00</Value>
+            </Row>
+          ))}
+        </>
+      )}
 
-      <SectionTitle>Addons</SectionTitle>
-      {selectedAddons.map((addon) => (
-        <p key={addon.id}>
-          {addon.name} — ${addon.price}
-        </p>
-      ))}
-      <p>Total price is : {totalPrice} $</p>
-      <StepperButton
-        handleButton={() => handleValidate(totalPrice)}
-        label="Confirm"
-      />
+      <Divider />
+
+      <TotalRow>
+        <TotalLabel>Total</TotalLabel>
+        <TotalPrice>€{totalPrice}.00</TotalPrice>
+      </TotalRow>
+
+      <Actions>
+        <StepperButton
+          handleButton={() => handleValidate(totalPrice)}
+          label="Confirm"
+        />
+        <StepperButton
+          handleButton={handleClose}
+          label="Cancel"
+          variant="outline"
+        />
+      </Actions>
     </div>
   );
 };
