@@ -34,6 +34,8 @@ export const OrderStep: React.FunctionComponent<Props> = ({
         id="QuantityID"
         value={order.quantity}
         handleBlur={handleBlur}
+        error={errors.quantity}
+        touched={touched.quantity}
       />
       {touched.quantity && errors.quantity && (
         <FormInputError error={errors.quantity} />
