@@ -30,6 +30,8 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
         id="FirstNameID"
         value={attendee.firstName}
         handleBlur={handleBlur}
+          error={errors.firstName}
+          touched={touched.firstName}
       />
       {touched.firstName && errors.firstName && (
         <FormInputError error={errors.firstName} />
@@ -43,6 +45,8 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
         id="LastNameID"
         value={attendee.lastName}
         handleBlur={handleBlur}
+        error={errors.lastName}
+        touched={touched.lastName}
       />
       {touched.lastName && errors.lastName && (
         <FormInputError error={errors.lastName} />
