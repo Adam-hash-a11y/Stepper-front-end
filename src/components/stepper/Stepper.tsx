@@ -158,10 +158,7 @@ export const Stepper = () => {
                 label="Checkout"
               />
               {isModalOpen && (
-                <CheckoutModal
-                  handleClose={handleCloseModal}
-                  isOpen={isModalOpen}
-                >
+                <CheckoutModal isOpen={isModalOpen}>
                   <BookingSummary
                     attendee={state.attendee}
                     events={state.events}
@@ -169,6 +166,7 @@ export const Stepper = () => {
                     selection={state.selection}
                     order={state.order}
                     handleValidate={handleConfirmBooking}
+                    handleClose={handleCloseModal}
                   />
                 </CheckoutModal>
               )}
