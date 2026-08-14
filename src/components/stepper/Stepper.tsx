@@ -182,7 +182,11 @@ export const Stepper = () => {
           )}
 
           {state.currentStep !== 1 && (
-            <StepperButton handleButton={handlePrevStep} label="Previous" />
+            <StepperButton
+              handleButton={handlePrevStep}
+              label="Previous"
+              variant="outline"
+            />
           )}
         </>
       )}
