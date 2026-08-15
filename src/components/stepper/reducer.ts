@@ -390,7 +390,7 @@ export const stepperReducer = (state: State, action: any) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? true
+                  ? isValidQuantity(Number(state.order.quantity)) !== ""
                   : false,
       };
     }
@@ -411,7 +411,7 @@ export const stepperReducer = (state: State, action: any) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? state.errors.quantity !== ""
+                  ? isValidQuantity(Number(state.order.quantity)) !== ""
                   : false,
       };
     }
