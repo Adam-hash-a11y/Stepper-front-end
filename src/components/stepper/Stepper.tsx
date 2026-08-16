@@ -20,6 +20,8 @@ import { StepperButton } from "../shared/stepperButton/StepperButton";
 import { CheckoutModal } from "../shared/checkoutModal/CheckoutModal";
 import { BookingSummary } from "../bookingSummary/BookingSummary";
 import { ProgressBar } from "../progressBar/ProgressBar";
+import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
+import { Bounce, toast } from "react-toastify";
 
 const PageWrapper = styled.div`
   max-width: 1024px;
@@ -110,6 +112,17 @@ export const Stepper = () => {
   const handleConfirmBooking = (totalPrice: number) => {
     dispatch({ type: SUBMIT_BOOKING, payload: { totalPrice } });
     setIsModalOpen(false);
+    toast.success("🎟️ Booking confirmed! See you in Berlin.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
   };
   const handleStartOver = () => {
     dispatch({ type: START_OVER });
@@ -121,10 +134,16 @@ export const Stepper = () => {
   return (
     <PageWrapper>
       {state.submitted ? (
-        <>
-          <p>We'll see you in the Berlin</p>
-          <StepperButton handleButton={handleStartOver} label="go back home" />
-        </>
+        <ConfirmationScreen
+          attendee={state.attendee}
+          events={state.events}
+          addons={state.addons}
+          selection={state.selection}
+          order={state.order}
+          totalPrice={state.totalPrice}
+          bookingId={state.bookingId}
+          handleStartOver={handleStartOver}
+        />
       ) : (
         <>
           <ProgressBar step={state.currentStep} />
