@@ -1,0 +1,9 @@
+services:
+  stepper-front-end:
+    build: .
+    container_name: stepper-front-end
+    ports:
+      - "5171:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
