@@ -48,6 +48,15 @@ const baseInputStyles = `
   &:focus {
     outline: none;
   }
+     &::-webkit-outer-spin-button,
+     &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
 
 const NeutralInput = styled.input`
