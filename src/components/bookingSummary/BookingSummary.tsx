@@ -74,6 +74,7 @@ const TotalPrice = styled.span`
 const Actions = styled.div`
   display: flex;
   gap: 16px;
+  justify-content: space-between;
 `;
 
 export const BookingSummary: React.FunctionComponent<Props> = ({
