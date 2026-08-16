@@ -30,6 +30,8 @@ export const ContactStep: React.FunctionComponent<Props> = ({
         id="EmailID"
         value={attendee.email}
         handleBlur={handleBlur}
+        error={errors.email}
+        touched={touched.email}
       />
       {touched.email && errors.email && <FormInputError error={errors.email} />}
 
@@ -42,6 +44,8 @@ export const ContactStep: React.FunctionComponent<Props> = ({
         id="PhoneID"
         value={attendee.phone}
         handleBlur={handleBlur}
+        error={errors.phone}
+        touched={touched.phone}
       />
       {touched.phone && errors.phone && <FormInputError error={errors.phone} />}
     </>

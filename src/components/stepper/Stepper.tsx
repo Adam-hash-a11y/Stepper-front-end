@@ -1,4 +1,5 @@
 import React, { useReducer, useState } from "react";
+import styled from "styled-components";
 import { initialState, stepperReducer } from "./reducer";
 import {
   NEXT_STEP,
@@ -19,6 +20,26 @@ import { StepperButton } from "../shared/stepperButton/StepperButton";
 import { CheckoutModal } from "../shared/checkoutModal/CheckoutModal";
 import { BookingSummary } from "../bookingSummary/BookingSummary";
 import { ProgressBar } from "../progressBar/ProgressBar";
+import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
+import { Bounce, toast } from "react-toastify";
+
+const PageWrapper = styled.div`
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+`;
+
+const StepContent = styled.div`
+  margin-bottom: 48px;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+`;
+
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -91,6 +112,17 @@ export const Stepper = () => {
   const handleConfirmBooking = (totalPrice: number) => {
     dispatch({ type: SUBMIT_BOOKING, payload: { totalPrice } });
     setIsModalOpen(false);
+    toast.success("🎟️ Booking confirmed! See you in Berlin.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
   };
   const handleStartOver = () => {
     dispatch({ type: START_OVER });
@@ -100,92 +132,104 @@ export const Stepper = () => {
   };
 
   return (
-    <>
+    <PageWrapper>
       {state.submitted ? (
-        <>
-          <p>We'll see you in the Berlin</p>
-          <StepperButton handleButton={handleStartOver} label="go back home" />
-        </>
+        <ConfirmationScreen
+          attendee={state.attendee}
+          events={state.events}
+          addons={state.addons}
+          selection={state.selection}
+          order={state.order}
+          totalPrice={state.totalPrice}
+          bookingId={state.bookingId}
+          handleStartOver={handleStartOver}
+        />
       ) : (
         <>
           <ProgressBar step={state.currentStep} />
-          {state.currentStep === 1 && (
-            <PersonalInfoStep
-              attendee={state.attendee}
-              handleInputChange={handleInputChange}
-              handleBlur={handleBlur}
-              touched={state.touched}
-              errors={state.errors}
-            />
-          )}
-          {state.currentStep === 2 && (
-            <ContactStep
-              attendee={state.attendee}
-              handleInputChange={handleInputChange}
-              handleBlur={handleBlur}
-              touched={state.touched}
-              errors={state.errors}
-            />
-          )}
-
-          {state.currentStep === 3 && (
-            <EventTierStep
-              events={state.events}
-              selection={state.selection}
-              handleEventSelection={handleEventSelect}
-              handleTierSelection={handleSelectTier}
-              touched={state.touched}
-              errors={state.errors}
-            />
-          )}
-          {state.currentStep === 4 && (
-            <OrderStep
-              order={state.order}
-              handleTicketQuantity={handleTicketQuantityChange}
-              addons={state.addons}
-              handleCheckBoxToggle={handleAddonCheckBox}
-              handleBlur={handleBlur}
-              touched={state.touched}
-              errors={state.errors}
-            />
-          )}
-
-          {state.currentStep === 4 ? (
-            <>
-              <StepperButton
-                handleButton={handleOpenModal}
-                disabled={state.disabled}
-                label="Checkout"
+          <StepContent>
+            {state.currentStep === 1 && (
+              <PersonalInfoStep
+                attendee={state.attendee}
+                handleInputChange={handleInputChange}
+                handleBlur={handleBlur}
+                touched={state.touched}
+                errors={state.errors}
               />
-              {isModalOpen && (
-                <CheckoutModal
-                  handleClose={handleCloseModal}
-                  isOpen={isModalOpen}
-                >
-                  <BookingSummary
-                    attendee={state.attendee}
-                    events={state.events}
-                    addons={state.addons}
-                    selection={state.selection}
-                    order={state.order}
-                    handleValidate={handleConfirmBooking}
-                  />
-                </CheckoutModal>
-              )}
-            </>
-          ) : (
-            <StepperButton
-              handleButton={handleNextStep}
-              label="Next"
-              disabled={state.disabled}
-            />
-          )}
+            )}
+            {state.currentStep === 2 && (
+              <ContactStep
+                attendee={state.attendee}
+                handleInputChange={handleInputChange}
+                handleBlur={handleBlur}
+                touched={state.touched}
+                errors={state.errors}
+              />
+            )}
 
-          {state.currentStep !== 1 && (
-            <StepperButton handleButton={handlePrevStep} label="Previous" />
-          )}
+            {state.currentStep === 3 && (
+              <EventTierStep
+                events={state.events}
+                selection={state.selection}
+                handleEventSelection={handleEventSelect}
+                handleTierSelection={handleSelectTier}
+                touched={state.touched}
+                errors={state.errors}
+              />
+            )}
+            {state.currentStep === 4 && (
+              <OrderStep
+                order={state.order}
+                handleTicketQuantity={handleTicketQuantityChange}
+                addons={state.addons}
+                handleCheckBoxToggle={handleAddonCheckBox}
+                handleBlur={handleBlur}
+                touched={state.touched}
+                errors={state.errors}
+              />
+            )}
+          </StepContent>
+
+          <Actions>
+            {state.currentStep !== 1 && (
+              <StepperButton
+                handleButton={handlePrevStep}
+                label="Previous"
+                variant="outline"
+              />
+            )}
+
+            {state.currentStep === 4 ? (
+              <>
+                <StepperButton
+                  handleButton={handleOpenModal}
+                  disabled={state.disabled}
+                  label="Checkout"
+                />
+                {isModalOpen && (
+                  <CheckoutModal isOpen={isModalOpen}>
+                    <BookingSummary
+                      attendee={state.attendee}
+                      events={state.events}
+                      addons={state.addons}
+                      selection={state.selection}
+                      order={state.order}
+                      handleValidate={handleConfirmBooking}
+                      handleClose={handleCloseModal}
+                    />
+                  </CheckoutModal>
+                )}
+              </>
+            ) : (
+              <StepperButton
+                handleButton={handleNextStep}
+                label="Next"
+                disabled={state.disabled}
+              />
+            )}
+          </Actions>
         </>
       )}
-    </>
+    </PageWrapper>
   );
 };

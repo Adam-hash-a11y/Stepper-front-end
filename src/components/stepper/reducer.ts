@@ -28,6 +28,7 @@ interface Dj {
 interface EventTier {
   id: string;
   name: string; // e.g. "Full Pass", "VIP", "1-Day"
+  subtitle: string; // e.g. "3-Day Access", "Any One Day"
   price: number;
   capacity: number;
   remaining: number;
@@ -43,6 +44,9 @@ interface Addon {
 interface TechnoEvent {
   id: string;
   name: string;
+  subtitle: string; // e.g. "Summer Festival", "Core"
+  location: string; // e.g. "Spaarnwoude, NL"
+  icon: string;
   dateRange: string; // e.g. "Aug 12 - Aug 14"
   djs: Dj[];
   tiers: EventTier[];
@@ -96,6 +100,9 @@ export const initialState: State = {
     {
       id: "awakenings-2026",
       name: "Awakenings Festival",
+      subtitle: "Summer Festival",
+      location: "Spaarnwoude, NL",
+      icon: "awakenings",
       dateRange: "Jul 10 - Jul 12",
       djs: [
         { name: "Adam Beyer", day: "Jul 10", time: "22:00" },
@@ -107,6 +114,7 @@ export const initialState: State = {
         {
           id: "day-pass",
           name: "Day Pass",
+          subtitle: "Any One Day",
           price: 89,
           capacity: 1200,
           remaining: 856,
@@ -114,6 +122,7 @@ export const initialState: State = {
         {
           id: "weekend",
           name: "Weekend Pass",
+          subtitle: "3-Day Access",
           price: 229,
           capacity: 700,
           remaining: 421,
@@ -121,6 +130,7 @@ export const initialState: State = {
         {
           id: "vip",
           name: "VIP Experience",
+          subtitle: "3-Day Access + VIP",
           price: 399,
           capacity: 150,
           remaining: 48,
@@ -131,6 +141,9 @@ export const initialState: State = {
     {
       id: "timewarp-2026",
       name: "Time Warp",
+      subtitle: "Germany",
+      location: "Mannheim, Germany",
+      icon: "timewarp",
       dateRange: "Apr 04 - Apr 05",
       djs: [
         { name: "Richie Hawtin", day: "Apr 04", time: "23:00" },
@@ -142,6 +155,7 @@ export const initialState: State = {
         {
           id: "general",
           name: "General Admission",
+          subtitle: "2-Day Access",
           price: 119,
           capacity: 1000,
           remaining: 742,
@@ -149,6 +163,7 @@ export const initialState: State = {
         {
           id: "premium",
           name: "Premium",
+          subtitle: "2-Day Access + VIP",
           price: 249,
           capacity: 250,
           remaining: 97,
@@ -159,6 +174,9 @@ export const initialState: State = {
     {
       id: "tomorrowland-freedom",
       name: "Tomorrowland - Freedom Stage",
+      subtitle: "Core",
+      location: "Boom, Belgium",
+      icon: "tomorrowland",
       dateRange: "Jul 24 - Jul 26",
       djs: [
         { name: "Anyma", day: "Jul 24", time: "22:30" },
@@ -170,6 +188,7 @@ export const initialState: State = {
         {
           id: "comfort",
           name: "Comfort Pass",
+          subtitle: "3-Day Access",
           price: 279,
           capacity: 400,
           remaining: 184,
@@ -177,6 +196,7 @@ export const initialState: State = {
         {
           id: "vip",
           name: "VIP Sky Deck",
+          subtitle: "3-Day Access + VIP",
           price: 499,
           capacity: 120,
           remaining: 29,
@@ -370,7 +390,7 @@ export const stepperReducer = (state: State, action: any) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? true
+                  ? isValidQuantity(Number(state.order.quantity)) !== ""
                   : false,
       };
     }
@@ -391,14 +411,17 @@ export const stepperReducer = (state: State, action: any) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? state.errors.quantity !== ""
+                  ? isValidQuantity(Number(state.order.quantity)) !== ""
                   : false,
       };
     }
     case SUBMIT_BOOKING: {
+      const randomPart = crypto.randomUUID().split("-")[0].toUpperCase();
+
       return {
         ...state,
         totalPrice: action.payload.totalPrice,
+        bookingId: `VLT-${randomPart}`,
         submitted: true,
       };
     }
