@@ -416,9 +416,12 @@ export const stepperReducer = (state: State, action: any) => {
       };
     }
     case SUBMIT_BOOKING: {
+      const randomPart = crypto.randomUUID().split("-")[0].toUpperCase();
+
       return {
         ...state,
         totalPrice: action.payload.totalPrice,
+        bookingId: `VLT-${randomPart}`,
         submitted: true,
       };
     }
