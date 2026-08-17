@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -8,13 +9,14 @@ const HeaderWrapper = styled.header`
   background-color: #0a0a0a;
 `;
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   font-family: "Orbitron", sans-serif;
   font-weight: 900;
   font-size: 28px;
   letter-spacing: 1px;
   color: #ffffff;
   text-transform: uppercase;
+  text-decoration: none;
 `;
 
 const Nav = styled.nav`
@@ -39,9 +41,11 @@ const NavItem = styled.a`
 export const Header: React.FunctionComponent = () => {
   return (
     <HeaderWrapper>
-      <Logo>Voltage</Logo>
+      <Logo to="/">Voltage</Logo>
       <Nav>
-        <NavItem>Home</NavItem>
+        <NavItem as={Link} to="/">
+          Home
+        </NavItem>
         <NavItem>Festivals</NavItem>
         <NavItem>Info</NavItem>
         <NavItem>Account</NavItem>
