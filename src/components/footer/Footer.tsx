@@ -6,7 +6,6 @@ const FooterWrapper = styled.footer`
   justify-content: space-between;
   padding: 32px 48px;
   background-color: #0a0a0a;
-  border-top: 1px solid #1a1a1a;
 `;
 
 const Logo = styled.div`
