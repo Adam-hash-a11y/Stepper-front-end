@@ -22,6 +22,7 @@ import { BookingSummary } from "../bookingSummary/BookingSummary";
 import { ProgressBar } from "../progressBar/ProgressBar";
 import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
 import { Bounce, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PageWrapper = styled.div`
   max-width: 1024px;
@@ -43,6 +44,7 @@ const Actions = styled.div`
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   console.log(state);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,6 +128,7 @@ export const Stepper = () => {
   };
   const handleStartOver = () => {
     dispatch({ type: START_OVER });
+    navigate("/");
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     dispatch({ type: SET_TOUCHED, field: e.target.name });
