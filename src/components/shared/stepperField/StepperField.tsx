@@ -15,7 +15,9 @@ interface Props {
   touched?: boolean;
 }
 
-function getVariant(touched?: boolean, error?: string) {
+type Variant = "neutral" | "error" | "success";
+
+function getVariant(touched?: boolean, error?: string): Variant {
   if (!touched) return "neutral";
   if (error) return "error";
   return "success";
@@ -31,7 +33,13 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 
-const baseInputStyles = `
+const borderColor: Record<Variant, string> = {
+  neutral: "#333333",
+  error: "#dc2626",
+  success: "#7c3aed",
+};
+
+const StyledInput = styled.input<{ variant: Variant }>`
   width: 100%;
   padding: 14px 40px 14px 16px;
   border-radius: 4px;
@@ -40,6 +48,7 @@ const baseInputStyles = `
   background: #0a0a0a;
   color: #ffffff;
   transition: border-color 0.15s ease;
+  border: 1px solid ${(props) => borderColor[props.variant]};
 
   &::placeholder {
     color: #555555;
@@ -47,9 +56,11 @@ const baseInputStyles = `
 
   &:focus {
     outline: none;
+    border-color: #7c3aed;
   }
-     &::-webkit-outer-spin-button,
-     &::-webkit-inner-spin-button {
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
@@ -58,31 +69,6 @@ const baseInputStyles = `
     -moz-appearance: textfield;
   }
 `;
-
-const NeutralInput = styled.input`
-  ${baseInputStyles}
-  border: 1px solid #333333;
-
-  &:focus {
-    border-color: #7c3aed;
-  }
-`;
-
-const ErrorInput = styled.input`
-  ${baseInputStyles}
-  border: 1px solid #dc2626;
-`;
-
-const SuccessInput = styled.input`
-  ${baseInputStyles}
-  border: 1px solid #7c3aed;
-`;
-
-const inputVariants = {
-  neutral: NeutralInput,
-  error: ErrorInput,
-  success: SuccessInput,
-};
 
 const SuccessIcon = styled(FaCircleCheck)`
   position: absolute;
@@ -124,7 +110,6 @@ export const StepperInput: React.FunctionComponent<Props> = ({
   touched,
 }) => {
   const variant = getVariant(touched, error);
-  const StyledInput = inputVariants[variant];
 
   return (
     <Field>
@@ -136,6 +121,7 @@ export const StepperInput: React.FunctionComponent<Props> = ({
           value={value}
           placeholder={placeholder}
           id={id}
+          variant={variant}
           onChange={handleFiledChange}
           onBlur={handleBlur}
         />
