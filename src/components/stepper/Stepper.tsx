@@ -23,6 +23,7 @@ import { ProgressBar } from "../progressBar/ProgressBar";
 import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 const PageWrapper = styled.div`
   max-width: 1024px;
@@ -48,6 +49,7 @@ export const Stepper = () => {
   console.log(state);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(state);
     dispatch({
       type: SET_ATTENDEE_FIELD,
       payload: {
@@ -132,6 +134,33 @@ export const Stepper = () => {
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     dispatch({ type: SET_TOUCHED, field: e.target.name });
+  };
+
+  const displayNextButton = () => {
+    if (state.disabled === true) {
+      return (
+        <>
+          <Tooltip anchorSelect="#NextID">
+            You have to fill First Name and last name !
+          </Tooltip>
+          <StepperButton
+            handleButton={handleNextStep}
+            label="Next"
+            disabled={state.disabled}
+            id="NextID"
+          />
+        </>
+      );
+    } else {
+      return (
+        <StepperButton
+          handleButton={handleNextStep}
+          label="Next"
+          disabled={state.disabled}
+          id="NextID"
+        />
+      );
+    }
   };
 
   return (
@@ -224,11 +253,7 @@ export const Stepper = () => {
                 )}
               </>
             ) : (
-              <StepperButton
-                handleButton={handleNextStep}
-                label="Next"
-                disabled={state.disabled}
-              />
+              displayNextButton()
             )}
           </Actions>
         </>
