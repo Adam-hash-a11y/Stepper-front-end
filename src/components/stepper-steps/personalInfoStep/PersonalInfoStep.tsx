@@ -3,6 +3,7 @@ import { StepperInput } from "../../shared/stepperField/StepperField";
 import type { State } from "../../stepper/reducer";
 import { InputType } from "../../stepper/types";
 import { FormInputError } from "../../shared/inputError/InputError";
+import { Tooltip } from "react-tooltip";
 
 interface Props {
   attendee: State["attendee"];
@@ -21,6 +22,9 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <>
+      <Tooltip anchorSelect="#FirstNameID" place="top">
+        Please Write your First Name
+      </Tooltip>
       <StepperInput
         handleFiledChange={handleInputChange}
         name="firstName"
@@ -30,12 +34,15 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
         id="FirstNameID"
         value={attendee.firstName}
         handleBlur={handleBlur}
-          error={errors.firstName}
-          touched={touched.firstName}
+        error={errors.firstName}
+        touched={touched.firstName}
       />
       {touched.firstName && errors.firstName && (
         <FormInputError error={errors.firstName} />
       )}
+      <Tooltip anchorSelect="#LastNameID" place="top">
+        Please Write your Last Name
+      </Tooltip>
       <StepperInput
         handleFiledChange={handleInputChange}
         name="lastName"

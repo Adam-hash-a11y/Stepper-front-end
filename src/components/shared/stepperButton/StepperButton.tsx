@@ -6,6 +6,7 @@ interface Props {
   handleButton?: () => void;
   disabled?: boolean;
   variant?: "solid" | "outline";
+  id?: string;
 }
 
 const Button = styled.button<{ variant: "solid" | "outline" }>`
@@ -41,9 +42,15 @@ export const StepperButton: React.FunctionComponent<Props> = ({
   handleButton,
   disabled,
   variant = "solid",
+  id,
 }) => {
   return (
-    <Button onClick={handleButton} disabled={disabled} variant={variant}>
+    <Button
+      id={id}
+      onClick={handleButton}
+      disabled={disabled}
+      variant={variant}
+    >
       {label}
     </Button>
   );
