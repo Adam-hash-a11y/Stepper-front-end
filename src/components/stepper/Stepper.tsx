@@ -84,7 +84,10 @@ export const Stepper = () => {
       type: SET_SELECTION,
       payload: {
         name: "eventId",
-        value: e.currentTarget.id,
+        value:
+          state.selection.eventId === e.currentTarget.id
+            ? ""
+            : e.currentTarget.id,
       },
     });
   };
