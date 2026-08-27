@@ -71,10 +71,25 @@ const TotalPrice = styled.span`
   color: #7c3aed;
 `;
 
+const ActionsSpacer = styled.div`
+  height: 50px;
+`;
+
 const Actions = styled.div`
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 480px;
+  box-sizing: border-box;
   display: flex;
   gap: 16px;
   justify-content: space-between;
+  background-color: #0a0a0a;
+  border: 1px solid #7c3aed;
+  border-top: none;
+  padding: 30px 50px;
+  z-index: 1001;
 `;
 
 export const BookingSummary: React.FunctionComponent<Props> = ({
@@ -163,15 +178,17 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
         <TotalPrice>€{totalPrice}.00</TotalPrice>
       </TotalRow>
 
+      <ActionsSpacer />
+
       <Actions>
-        <StepperButton
-          handleButton={() => handleValidate(totalPrice)}
-          label="Confirm"
-        />
         <StepperButton
           handleButton={handleClose}
           label="Cancel"
           variant="outline"
+        />
+        <StepperButton
+          handleButton={() => handleValidate(totalPrice)}
+          label="Confirm"
         />
       </Actions>
     </div>
