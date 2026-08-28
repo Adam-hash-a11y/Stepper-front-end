@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -24,13 +24,54 @@ const Nav = styled.nav`
   gap: 40px;
 `;
 
-const NavItem = styled.a`
+const NavItem = styled(NavLink)`
+  position: relative;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #ffffff;
   text-decoration: none;
+  cursor: pointer;
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #7c3aed;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    color: #7c3aed;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+
+  &.active {
+    color: #7c3aed;
+  }
+
+  &.active::after {
+    transform: scaleX(1);
+  }
+`;
+
+const NavSpan = styled.span`
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
   cursor: pointer;
 
   &:hover {
@@ -43,12 +84,13 @@ export const Header: React.FunctionComponent = () => {
     <HeaderWrapper>
       <Logo to="/">Voltage</Logo>
       <Nav>
-        <NavItem as={Link} to="/">
+        <NavItem to="/" end>
           Home
         </NavItem>
-        <NavItem>Festivals</NavItem>
-        <NavItem>Info</NavItem>
-        <NavItem>Account</NavItem>
+        <NavItem to="/booking">Booking</NavItem>
+        <NavSpan>Festivals</NavSpan>
+        <NavSpan>Info</NavSpan>
+        <NavSpan>Account</NavSpan>
       </Nav>
     </HeaderWrapper>
   );
