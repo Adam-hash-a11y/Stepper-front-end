@@ -2,15 +2,12 @@ import type React from "react";
 import styled from "styled-components";
 import { PiXLogo, PiCube, PiWaveform } from "react-icons/pi";
 import type { State } from "../../stepper/reducer";
-import { FormInputError } from "../../shared/inputError/InputError";
 
 interface Props {
   selection: State["selection"];
   events: State["events"];
   handleEventSelection: (e: React.MouseEvent<HTMLDivElement>) => void;
   handleTierSelection: (e: React.MouseEvent<HTMLDivElement>) => void;
-  touched: State["touched"];
-  errors: State["errors"];
 }
 
 const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
@@ -208,8 +205,6 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
   selection,
   handleEventSelection,
   handleTierSelection,
-  touched,
-  errors,
 }) => {
   const selectedEvent = events.find((event) => event.id === selection.eventId);
 
@@ -245,9 +240,6 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
           );
         })}
       </EventGrid>
-      {touched.eventId && errors.eventId && (
-        <FormInputError error={errors.eventId} />
-      )}
 
       {selectedEvent && (
         <>
@@ -276,9 +268,6 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
             ))}
           </TierList>
         </>
-      )}
-      {touched.tierId && errors.tierId && (
-        <FormInputError error={errors.tierId} />
       )}
     </>
   );
