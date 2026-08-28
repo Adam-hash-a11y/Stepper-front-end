@@ -39,19 +39,3 @@ export const isValidQuantity = (value: number) => {
     return "Quantity must be at least 1";
   }
 };
-
-export const isValidEventSelection = (eventId: string) => {
-  if (eventId.length > 0) {
-    return "";
-  } else {
-    return "Please select an event";
-  }
-};
-
-export const isValidTierSelection = (tierId: string) => {
-  if (tierId.length > 0) {
-    return "";
-  } else {
-    return "Please select a pass tier";
-  }
-};
