@@ -4,8 +4,6 @@ import {
   isValidEmail,
   isValidPhoneNumber,
   isValidQuantity,
-  isValidEventSelection,
-  isValidTierSelection,
 } from "../../helpers/stepperForm.validator";
 import {
   NEXT_STEP,
@@ -75,8 +73,6 @@ export interface State {
     email: boolean;
     phone: boolean;
     quantity: boolean;
-    eventId: boolean;
-    tierId: boolean;
   };
   errors: {
     firstName: string;
@@ -84,8 +80,6 @@ export interface State {
     email: string;
     phone: string;
     quantity: string;
-    eventId: string;
-    tierId: string;
   };
   disabled: boolean;
   totalPrice: number;
@@ -260,8 +254,6 @@ export const initialState: State = {
     email: false,
     phone: false,
     quantity: false,
-    tierId: false,
-    eventId: false,
   },
   errors: {
     firstName: "",
@@ -269,8 +261,6 @@ export const initialState: State = {
     email: "",
     phone: "",
     quantity: "",
-    eventId: "",
-    tierId: "",
   },
 
   disabled: true,
@@ -337,23 +327,10 @@ export const stepperReducer = (state: State, action: any) => {
         newSelection.tierId = "";
       }
 
-      const newTouched = {
-        ...state.touched,
-        [action.payload.name]: true,
-      };
-
-      const newErrors = {
-        ...state.errors,
-        eventId: isValidEventSelection(newSelection.eventId),
-        tierId: isValidTierSelection(newSelection.tierId),
-      };
-
       return {
         ...state,
         selection: newSelection,
-        touched: newTouched,
-        errors: newErrors,
-        disabled: newErrors.eventId !== "" || newErrors.tierId !== "",
+        disabled: newSelection.eventId === "" || newSelection.tierId === "",
       };
     }
 
