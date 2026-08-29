@@ -42,6 +42,22 @@ const Actions = styled.div`
   gap: 16px;
 `;
 
+const RequiredFieldsNote = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 24px;
+`;
+
+const RequiredStar = styled.span`
+  color: #dc2626;
+`;
+
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -182,6 +198,9 @@ export const Stepper = () => {
       ) : (
         <>
           <ProgressBar step={state.currentStep} />
+          <RequiredFieldsNote>
+            Fields with <RequiredStar>*</RequiredStar> are mandatory
+          </RequiredFieldsNote>
           <StepContent>
             {state.currentStep === 1 && (
               <PersonalInfoStep
