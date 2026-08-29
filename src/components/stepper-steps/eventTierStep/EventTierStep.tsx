@@ -200,6 +200,9 @@ const Chevron = styled.span`
   font-size: 16px;
   text-align: right;
 `;
+const RequiredStar = styled.span`
+  color: #dc2626;
+`;
 
 export const EventTierStep: React.FunctionComponent<Props> = ({
   events,
@@ -214,7 +217,9 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
       <InfoCallout text="Select the festival you'd like to attend and choose a ticket tier. Each tier includes different perks and access levels, so pick the one that fits your experience." />
 
       <SectionTitle>Select Your Event</SectionTitle>
-      <SectionSubtitle>Choose your festival experience</SectionSubtitle>
+      <SectionSubtitle>
+        Choose your festival experience <RequiredStar>*</RequiredStar>
+      </SectionSubtitle>
 
       <EventGrid>
         {events.map((event) => {
@@ -247,7 +252,9 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
       {selectedEvent && (
         <>
           <SectionTitle>Select Your Pass</SectionTitle>
-          <SectionSubtitle>Choose your ticket tier</SectionSubtitle>
+          <SectionSubtitle>
+            Choose your ticket tier <RequiredStar>*</RequiredStar>
+          </SectionSubtitle>
 
           <TierList>
             {selectedEvent.tiers.map((tier) => (
