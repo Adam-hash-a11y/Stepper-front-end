@@ -2,6 +2,7 @@ import type React from "react";
 import styled from "styled-components";
 import { PiXLogo, PiCube, PiWaveform } from "react-icons/pi";
 import type { State } from "../../stepper/reducer";
+import { InfoCallout } from "../../shared/infoCallout/InfoCallout";
 
 interface Props {
   selection: State["selection"];
@@ -210,6 +211,8 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
 
   return (
     <>
+      <InfoCallout text="Select the festival you'd like to attend and choose a ticket tier. Each tier includes different perks and access levels, so pick the one that fits your experience." />
+
       <SectionTitle>Select Your Event</SectionTitle>
       <SectionSubtitle>Choose your festival experience</SectionSubtitle>
 
