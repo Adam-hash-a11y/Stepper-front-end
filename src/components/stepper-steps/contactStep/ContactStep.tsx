@@ -3,6 +3,7 @@ import type { State } from "../../stepper/reducer";
 import { StepperInput } from "../../shared/stepperField/StepperField";
 import { InputType } from "../../stepper/types";
 import { FormInputError } from "../../shared/inputError/InputError";
+import { InfoCallout } from "../../shared/infoCallout/InfoCallout";
 
 interface Props {
   attendee: State["attendee"];
@@ -21,6 +22,7 @@ export const ContactStep: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <>
+      <InfoCallout text="Please provide a valid email address and phone number. We'll use these to send your ticket confirmation and any important updates about the event." />
       <StepperInput
         handleFiledChange={handleInputChange}
         name="email"
