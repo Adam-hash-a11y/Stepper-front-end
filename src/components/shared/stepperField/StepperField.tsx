@@ -97,6 +97,11 @@ const StyledLabel = styled.label`
   margin-bottom: 8px;
 `;
 
+const RequiredMark = styled.span`
+  color: #dc2626;
+  margin-left: 4px;
+`;
+
 export const StepperInput: React.FunctionComponent<Props> = ({
   name,
   type,
@@ -113,7 +118,10 @@ export const StepperInput: React.FunctionComponent<Props> = ({
 
   return (
     <Field>
-      <StyledLabel htmlFor={id}>{label}</StyledLabel>
+      <StyledLabel htmlFor={id}>
+        {label}
+        <RequiredMark aria-hidden="true">*</RequiredMark>
+      </StyledLabel>
       <InputWrapper>
         <StyledInput
           name={name}
