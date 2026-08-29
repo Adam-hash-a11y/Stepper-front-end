@@ -4,6 +4,7 @@ import type { State } from "../../stepper/reducer";
 import { InputType } from "../../stepper/types";
 import { FormInputError } from "../../shared/inputError/InputError";
 import { Tooltip } from "react-tooltip";
+import { InfoCallout } from "../../shared/infoCallout/InfoCallout";
 
 interface Props {
   attendee: State["attendee"];
@@ -25,6 +26,7 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
       <Tooltip anchorSelect="#FirstNameID" place="top">
         Please Write your First Name
       </Tooltip>
+      <InfoCallout text="Please enter your full legal name as it appears on your ID or passport. This helps us verify your booking and ensures a smooth check-in at the event." />
       <StepperInput
         handleFiledChange={handleInputChange}
         name="firstName"
