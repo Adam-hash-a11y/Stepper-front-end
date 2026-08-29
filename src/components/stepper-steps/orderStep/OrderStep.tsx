@@ -107,10 +107,9 @@ export const OrderStep: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <>
+      <InfoCallout text="Choose how many tickets you need. Add-ons are optional and can enhance your festival experience, but they're not required to complete your order." />
       <SectionTitle>Ticket Quantity</SectionTitle>
       <SectionSubtitle>How many tickets do you need</SectionSubtitle>
-      <InfoCallout text="Choose how many tickets you need. Add-ons are optional and can enhance your festival experience, but they're not required to complete your order." />
-
       <StepperInput
         handleFiledChange={handleTicketQuantity}
         name="quantity"
