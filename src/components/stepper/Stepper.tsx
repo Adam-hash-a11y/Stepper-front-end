@@ -58,6 +58,13 @@ const RequiredStar = styled.span`
   color: #dc2626;
 `;
 
+const NEXT_BUTTON_TOOLTIP: Record<number, string> = {
+  1: "Please fill in your first name and last name",
+  2: "Please fill in a valid email and phone number",
+  3: "Please select an event and a ticket tier",
+  4: "Please select a ticket quantity of 1 or more",
+};
+
 export const Stepper = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -160,7 +167,7 @@ export const Stepper = () => {
       return (
         <>
           <Tooltip anchorSelect="#NextID">
-            You have to fill First Name and last name !
+            {NEXT_BUTTON_TOOLTIP[state.currentStep]}
           </Tooltip>
           <StepperButton
             handleButton={handleNextStep}
@@ -253,10 +260,16 @@ export const Stepper = () => {
 
             {state.currentStep === 4 ? (
               <>
+                {state.disabled && (
+                  <Tooltip anchorSelect="#CheckoutID">
+                    {NEXT_BUTTON_TOOLTIP[4]}
+                  </Tooltip>
+                )}
                 <StepperButton
                   handleButton={handleOpenModal}
                   disabled={state.disabled}
                   label="Checkout"
+                  id="CheckoutID"
                 />
                 {isModalOpen && (
                   <CheckoutModal isOpen={isModalOpen}>
