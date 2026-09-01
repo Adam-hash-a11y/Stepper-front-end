@@ -350,27 +350,25 @@ export const stepperReducer = (state: State, action: any) => {
       };
       return newState;
     }
-    case NEXT_STEP: {
-      if (state.currentStep === state.totalSteps) {
-        return state;
+    case NEXT_STEP:
+      {
+        const newStep = state.currentStep + 1;
+        return {
+          ...state,
+          currentStep: newStep,
+          disabled:
+            newStep === 1
+              ? state.errors.firstName !== "" || state.errors.lastName !== ""
+              : newStep === 2
+                ? state.errors.email !== "" || state.errors.phone !== ""
+                : newStep === 3
+                  ? state.selection.eventId === "" ||
+                    state.selection.tierId === ""
+                  : newStep === 4
+                    ? isValidQuantity(Number(state.order.quantity)) !== ""
+                    : false,
+        };
       }
-      const newStep = state.currentStep + 1;
-      return {
-        ...state,
-        currentStep: newStep,
-        disabled:
-          newStep === 1
-            ? state.errors.firstName !== "" || state.errors.lastName !== ""
-            : newStep === 2
-              ? state.errors.email !== "" || state.errors.phone !== ""
-              : newStep === 3
-                ? state.selection.eventId === "" ||
-                  state.selection.tierId === ""
-                : newStep === 4
-                  ? isValidQuantity(Number(state.order.quantity)) !== ""
-                  : false,
-      };
-    }
     case PREV_STEP: {
       if (state.currentStep === 1) {
         return state;
