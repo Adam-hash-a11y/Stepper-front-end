@@ -24,6 +24,8 @@ import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
+import { NEXT_BUTTON_TOOLTIP } from "./constants";
+import { NextButton } from "../nextButton/NextButton";
 
 const PageWrapper = styled.div`
   max-width: 1024px;
@@ -58,14 +60,7 @@ const RequiredStar = styled.span`
   color: #dc2626;
 `;
 
-const NEXT_BUTTON_TOOLTIP: Record<number, string> = {
-  1: "Please fill in your first name and last name",
-  2: "Please fill in a valid email and phone number",
-  3: "Please select an event and a ticket tier",
-  4: "Please select a ticket quantity of 1 or more",
-};
-
-export const Stepper = () => {
+export const Stepper: React.FunctionComponent = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -126,7 +121,9 @@ export const Stepper = () => {
   };
 
   const handleNextStep = () => {
-    dispatch({ type: NEXT_STEP });
+    if (state.currentStep !== state.totalSteps) {
+      dispatch({ type: NEXT_STEP });
+    }
   };
   const handlePrevStep = () => {
     dispatch({ type: PREV_STEP });
@@ -160,33 +157,6 @@ export const Stepper = () => {
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     dispatch({ type: SET_TOUCHED, field: e.target.name });
-  };
-
-  const displayNextButton = () => {
-    if (state.disabled === true) {
-      return (
-        <>
-          <Tooltip anchorSelect="#NextID">
-            {NEXT_BUTTON_TOOLTIP[state.currentStep]}
-          </Tooltip>
-          <StepperButton
-            handleButton={handleNextStep}
-            label="Next"
-            disabled={state.disabled}
-            id="NextID"
-          />
-        </>
-      );
-    } else {
-      return (
-        <StepperButton
-          handleButton={handleNextStep}
-          label="Next"
-          disabled={state.disabled}
-          id="NextID"
-        />
-      );
-    }
   };
 
   return (
@@ -286,7 +256,11 @@ export const Stepper = () => {
                 )}
               </>
             ) : (
-              displayNextButton()
+              <NextButton
+                disabled={state.disabled}
+                handleNextStep={handleNextStep}
+                currentStep={state.currentStep}
+              />
             )}
           </Actions>
         </>
