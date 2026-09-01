@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import React, { useState } from "react";
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -80,9 +82,20 @@ const NavSpan = styled.span`
 `;
 
 export const Header: React.FunctionComponent = () => {
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState("");
+  const handleLanaguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLanguage(e.target.value);
+    i18n.changeLanguage(e.target.value);
+  };
+
   return (
     <HeaderWrapper>
       <Logo to="/">Voltage</Logo>
+      <select value={language} onChange={handleLanaguageChange}>
+        <option value="fr">fr</option>
+        <option value="en">en</option>
+      </select>
       <Nav>
         <NavItem to="/" end>
           Home

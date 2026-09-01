@@ -24,7 +24,7 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
   return (
     <>
       <Tooltip anchorSelect="#FirstNameID" place="top">
-        Please Write your First Name
+        Please Write your Firstname
       </Tooltip>
       <InfoCallout text="Please enter your full legal name as it appears on your ID or passport. This helps us verify your booking and ensures a smooth check-in at the event." />
       <StepperInput
@@ -43,7 +43,7 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
         <FormInputError error={errors.firstName} />
       )}
       <Tooltip anchorSelect="#LastNameID" place="top">
-        Please Write your Last Name
+        Please Write your Lastname
       </Tooltip>
       <StepperInput
         handleFiledChange={handleInputChange}

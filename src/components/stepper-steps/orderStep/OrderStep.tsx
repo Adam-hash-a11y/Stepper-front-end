@@ -5,6 +5,7 @@ import { StepperInput } from "../../shared/stepperField/StepperField";
 import { InputType } from "../../stepper/types";
 import { FormInputError } from "../../shared/inputError/InputError";
 import { InfoCallout } from "../../shared/infoCallout/InfoCallout";
+import { Tooltip } from "react-tooltip";
 
 interface Props {
   order: State["order"];
@@ -110,6 +111,9 @@ export const OrderStep: React.FunctionComponent<Props> = ({
       <InfoCallout text="Choose how many tickets you need. Add-ons are optional and can enhance your festival experience, but they're not required to complete your order." />
       <SectionTitle>Ticket Quantity</SectionTitle>
       <SectionSubtitle>How many tickets do you need</SectionSubtitle>
+      <Tooltip anchorSelect="#QuantityID" place="top">
+        Please select a ticket quantity of 1 or more
+      </Tooltip>
       <StepperInput
         handleFiledChange={handleTicketQuantity}
         name="quantity"

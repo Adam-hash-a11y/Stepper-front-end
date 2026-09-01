@@ -24,6 +24,8 @@ import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
+import { NEXT_BUTTON_TOOLTIP } from "./constants";
+import { NextButton } from "../nextButton/NextButton";
 
 const PageWrapper = styled.div`
   max-width: 1024px;
@@ -58,7 +60,7 @@ const RequiredStar = styled.span`
   color: #dc2626;
 `;
 
-export const Stepper = () => {
+export const Stepper: React.FunctionComponent = () => {
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -119,7 +121,9 @@ export const Stepper = () => {
   };
 
   const handleNextStep = () => {
-    dispatch({ type: NEXT_STEP });
+    if (state.currentStep !== state.totalSteps) {
+      dispatch({ type: NEXT_STEP });
+    }
   };
   const handlePrevStep = () => {
     dispatch({ type: PREV_STEP });
@@ -153,33 +157,6 @@ export const Stepper = () => {
   };
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     dispatch({ type: SET_TOUCHED, field: e.target.name });
-  };
-
-  const displayNextButton = () => {
-    if (state.disabled === true) {
-      return (
-        <>
-          <Tooltip anchorSelect="#NextID">
-            You have to fill First Name and last name !
-          </Tooltip>
-          <StepperButton
-            handleButton={handleNextStep}
-            label="Next"
-            disabled={state.disabled}
-            id="NextID"
-          />
-        </>
-      );
-    } else {
-      return (
-        <StepperButton
-          handleButton={handleNextStep}
-          label="Next"
-          disabled={state.disabled}
-          id="NextID"
-        />
-      );
-    }
   };
 
   return (
@@ -253,10 +230,16 @@ export const Stepper = () => {
 
             {state.currentStep === 4 ? (
               <>
+                {state.disabled && (
+                  <Tooltip anchorSelect="#CheckoutID">
+                    {NEXT_BUTTON_TOOLTIP[4]}
+                  </Tooltip>
+                )}
                 <StepperButton
                   handleButton={handleOpenModal}
                   disabled={state.disabled}
                   label="Checkout"
+                  id="CheckoutID"
                 />
                 {isModalOpen && (
                   <CheckoutModal isOpen={isModalOpen}>
@@ -273,7 +256,11 @@ export const Stepper = () => {
                 )}
               </>
             ) : (
-              displayNextButton()
+              <NextButton
+                disabled={state.disabled}
+                handleNextStep={handleNextStep}
+                currentStep={state.currentStep}
+              />
             )}
           </Actions>
         </>

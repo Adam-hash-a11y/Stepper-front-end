@@ -4,6 +4,7 @@ import { StepperInput } from "../../shared/stepperField/StepperField";
 import { InputType } from "../../stepper/types";
 import { FormInputError } from "../../shared/inputError/InputError";
 import { InfoCallout } from "../../shared/infoCallout/InfoCallout";
+import { Tooltip } from "react-tooltip";
 
 interface Props {
   attendee: State["attendee"];
@@ -22,6 +23,9 @@ export const ContactStep: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <>
+      <Tooltip anchorSelect="#EmailID" place="top">
+        Please Write your Email
+      </Tooltip>
       <InfoCallout text="Please provide a valid email address and phone number. We'll use these to send your ticket confirmation and any important updates about the event." />
       <StepperInput
         handleFiledChange={handleInputChange}
@@ -36,7 +40,9 @@ export const ContactStep: React.FunctionComponent<Props> = ({
         touched={touched.email}
       />
       {touched.email && errors.email && <FormInputError error={errors.email} />}
-
+      <Tooltip anchorSelect="#PhoneID" place="top">
+        Please Write your Phone number
+      </Tooltip>
       <StepperInput
         handleFiledChange={handleInputChange}
         name="phone"
