@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { PiXLogo, PiCube, PiWaveform } from "react-icons/pi";
 import type { State } from "../../stepper/reducer";
 import { InfoCallout } from "../../shared/infoCallout/InfoCallout";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   selection: State["selection"];
@@ -211,12 +212,13 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
   handleTierSelection,
 }) => {
   const selectedEvent = events.find((event) => event.id === selection.eventId);
+  const { t, i18n } = useTranslation();
 
   return (
     <>
       <InfoCallout text="Select the festival you'd like to attend and choose a ticket tier. Each tier includes different perks and access levels, so pick the one that fits your experience." />
 
-      <SectionTitle>Select Your Event</SectionTitle>
+      <SectionTitle>{t("event")}</SectionTitle>
       <SectionSubtitle>
         Choose your festival experience <RequiredStar>*</RequiredStar>
       </SectionSubtitle>
