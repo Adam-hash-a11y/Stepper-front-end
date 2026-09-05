@@ -1,5 +1,6 @@
 import type React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   isOpen: boolean;
@@ -58,6 +59,8 @@ export const CheckoutModal: React.FunctionComponent<Props> = ({
   isOpen,
   children,
 }) => {
+  const { t } = useTranslation();
+
   if (!isOpen) {
     return null;
   }
@@ -65,7 +68,7 @@ export const CheckoutModal: React.FunctionComponent<Props> = ({
   return (
     <Overlay>
       <ModalBox>
-        <ConfirmText>Are you sure you want to proceed?</ConfirmText>
+        <ConfirmText>{t("checkoutModal.confirmText")}</ConfirmText>
         {children}
       </ModalBox>
     </Overlay>
