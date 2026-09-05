@@ -1,3 +1,144 @@
 {
-  "event": "Choisir votre evenement"
+  "eventTier": {
+    "info": "Sélectionnez le festival auquel vous souhaitez participer et choisissez une catégorie de billet. Chaque catégorie offre des avantages et des niveaux d'accès différents, alors choisissez celle qui correspond à votre expérience.",
+    "event": "Événement",
+    "chooseFestival": "Choisissez votre expérience de festival",
+    "lineupAZ": "Programmation A-Z",
+    "moreTBA": "Plus à venir",
+    "selectYourPass": "Sélectionnez votre pass",
+    "chooseTicketTier": "Choisissez votre catégorie de billet",
+    "spotsLeft": "Places restantes"
+  },
+  "bookingSummary": {
+    "attendee": "Participant",
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "eventAndTier": "Événement et catégorie",
+    "event": "Événement",
+    "dates": "Dates",
+    "tier": "Catégorie",
+    "tierPrice": "Prix du billet",
+    "quantity": "Quantité",
+    "addons": "Options supplémentaires",
+    "total": "Total",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "confirmation": {
+    "welcome": "Bienvenue à Berlin",
+    "bookingConfirmed": "Votre réservation est confirmée. À bientôt sur la piste.",
+    "attendee": "Participant",
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "eventAndTier": "Événement et catégorie",
+    "event": "Événement",
+    "dates": "Dates",
+    "tier": "Catégorie",
+    "tierPrice": "Prix du billet",
+    "quantity": "Quantité",
+    "addons": "Options supplémentaires",
+    "totalPaid": "Total payé",
+    "goBackHome": "Retour à l'accueil"
+  },
+  "footer": {
+    "terms": "Conditions",
+    "privacy": "Confidentialité",
+    "support": "Assistance",
+    "copyright": "© 2026 Voltage"
+  },
+  "header": {
+    "home": "Accueil",
+    "booking": "Réservation",
+    "festivals": "Festivals",
+    "info": "Infos",
+    "account": "Compte"
+  },
+  "home": {
+    "title": "Le Futur Ressemble à Ça",
+    "subtitle": "Vibrations underground. Artistes de renommée mondiale. Des moments inoubliables.",
+    "bookNow": "Réserver",
+    "techno": "Techno",
+    "community": "Communauté",
+    "freedom": "Liberté"
+  },
+  "progressBar": {
+    "personalInfo": "Infos personnelles",
+    "contact": "Contact",
+    "eventTier": "Événement et catégorie",
+    "order": "Commande"
+  },
+  "checkoutModal": {
+    "confirmText": "Êtes-vous sûr de vouloir continuer ?"
+  },
+  "contact": {
+    "emailTooltip": "Veuillez saisir votre adresse e-mail",
+    "info": "Veuillez fournir une adresse e-mail et un numéro de téléphone valides. Nous les utiliserons pour vous envoyer la confirmation de votre billet et toute information importante concernant l'événement.",
+    "emailPlaceholder": "E-mail",
+    "emailLabel": "E-mail",
+    "phoneTooltip": "Veuillez saisir votre numéro de téléphone",
+    "phonePlaceholder": "Téléphone",
+    "phoneLabel": "Numéro de téléphone"
+  },
+  "order": {
+    "info": "Choisissez le nombre de billets dont vous avez besoin. Les options supplémentaires sont facultatives et peuvent améliorer votre expérience du festival, mais elles ne sont pas nécessaires pour finaliser votre commande.",
+    "ticketQuantity": "Quantité de billets",
+    "ticketQuantitySubtitle": "De combien de billets avez-vous besoin ?",
+    "quantityTooltip": "Veuillez sélectionner une quantité de billets de 1 ou plus",
+    "quantityPlaceholder": "Combien de billets ?",
+    "quantityLabel": "Quantité",
+    "optionalAddons": "Options supplémentaires",
+    "addonsSubtitle": "Améliorez votre expérience du festival"
+  },
+  "personalInfo": {
+    "firstNameTooltip": "Veuillez saisir votre prénom",
+    "info": "Veuillez saisir votre nom légal complet tel qu'il apparaît sur votre pièce d'identité ou votre passeport. Cela nous aide à vérifier votre réservation et à garantir un enregistrement fluide lors de l'événement.",
+    "firstNamePlaceholder": "Prénom",
+    "firstNameLabel": "Prénom",
+    "lastNameTooltip": "Veuillez saisir votre nom",
+    "lastNamePlaceholder": "Nom",
+    "lastNameLabel": "Nom"
+  },
+  "validation": {
+    "firstName": "Le prénom doit comporter au moins 3 caractères",
+    "lastName": "Le nom doit comporter au moins 3 caractères",
+    "email": "L'adresse e-mail doit être valide",
+    "phone": "Le numéro de téléphone doit comporter au moins 8 caractères",
+    "quantity": "La quantité doit être d'au moins 1"
+  },
+  "nextButton": {
+    "label": "Suivant",
+    "firstStep": "Veuillez saisir votre prénom et votre nom",
+    "secondStep": "Veuillez saisir une adresse e-mail et un numéro de téléphone valides",
+    "thirdStep": "Veuillez sélectionner un événement et une catégorie de billet",
+    "fourthStep": "Veuillez sélectionner une quantité de billets de 1 ou plus"
+  },
+  "stepper": {
+    "requiredFields": "Les champs marqués d'un",
+    "requiredFieldsEnd": "sont obligatoires",
+    "previous": "Précédent",
+    "checkout": "Commander",
+    "checkoutTooltip": "Veuillez sélectionner une quantité de billets de 1 ou plus",
+    "bookingConfirmed": "🎟️ Réservation confirmée ! À bientôt à Berlin."
+  },
+
+  "addons": {
+    "vip-tent": {
+      "name": "Accès Tente VIP",
+      "description": "Détends-toi dans une tente privée à l'ombre avec ton propre bar"
+    },
+    "festival-tattoo": {
+      "name": "Tatouage du Festival",
+      "description": "Fais-toi tatouer par un artiste résident, design exclusif au festival"
+    },
+    "glow-bracelet": {
+      "name": "Bracelet Lumineux LED",
+      "description": "Bracelet lumineux synchronisé avec le set, à garder"
+    },
+    "shuttle-pass": {
+      "name": "Pass Navette",
+      "description": "Trajets illimités entre le camping et la scène principale"
+    }
+  }
 }

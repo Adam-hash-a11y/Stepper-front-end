@@ -1,3 +1,144 @@
 {
-  "event": "Choose your Event"
+  "eventTier": {
+    "info": "Select the festival you'd like to attend and choose a ticket tier. Each tier includes different perks and access levels, so pick the one that fits your experience.",
+    "event": "Event",
+    "chooseFestival": "Choose your festival experience",
+    "lineupAZ": "Lineup A-Z",
+    "moreTBA": "More TBA",
+    "selectYourPass": "Select Your Pass",
+    "chooseTicketTier": "Choose your ticket tier",
+    "spotsLeft": "Spots Left"
+  },
+  "bookingSummary": {
+    "attendee": "Attendee",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "eventAndTier": "Event & Tier",
+    "event": "Event",
+    "dates": "Dates",
+    "tier": "Tier",
+    "tierPrice": "Tier Price",
+    "quantity": "Quantity",
+    "addons": "Add-Ons",
+    "total": "Total",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "confirmation": {
+    "welcome": "Welcome To Berlin",
+    "bookingConfirmed": "Your booking is confirmed. See you on the floor.",
+    "attendee": "Attendee",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "eventAndTier": "Event & Tier",
+    "event": "Event",
+    "dates": "Dates",
+    "tier": "Tier",
+    "tierPrice": "Tier Price",
+    "quantity": "Quantity",
+    "addons": "Add-Ons",
+    "totalPaid": "Total Paid",
+    "goBackHome": "Go Back Home"
+  },
+  "footer": {
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "support": "Support",
+    "copyright": "© 2026 Voltage"
+  },
+  "header": {
+    "home": "Home",
+    "booking": "Booking",
+    "festivals": "Festivals",
+    "info": "Info",
+    "account": "Account"
+  },
+  "home": {
+    "title": "The Future Sounds Like This",
+    "subtitle": "Underground vibes. World class artists. Unforgettable moments.",
+    "bookNow": "Book Now",
+    "techno": "Techno",
+    "community": "Community",
+    "freedom": "Freedom"
+  },
+  "progressBar": {
+    "personalInfo": "Personal Info",
+    "contact": "Contact",
+    "eventTier": "Event & Tier",
+    "order": "Order"
+  },
+  "checkoutModal": {
+    "confirmText": "Are you sure you want to proceed?"
+  },
+  "contact": {
+    "emailTooltip": "Please write your email",
+    "info": "Please provide a valid email address and phone number. We'll use these to send your ticket confirmation and any important updates about the event.",
+    "emailPlaceholder": "Email",
+    "emailLabel": "Email",
+    "phoneTooltip": "Please write your phone number",
+    "phonePlaceholder": "Phone",
+    "phoneLabel": "Phone Number"
+  },
+  "order": {
+    "info": "Choose how many tickets you need. Add-ons are optional and can enhance your festival experience, but they're not required to complete your order.",
+    "ticketQuantity": "Ticket Quantity",
+    "ticketQuantitySubtitle": "How many tickets do you need",
+    "quantityTooltip": "Please select a ticket quantity of 1 or more",
+    "quantityPlaceholder": "How many tickets?",
+    "quantityLabel": "Quantity",
+    "optionalAddons": "Optional Add-Ons",
+    "addonsSubtitle": "Enhance your festival experience"
+  },
+  "personalInfo": {
+    "firstNameTooltip": "Please write your first name",
+    "info": "Please enter your full legal name as it appears on your ID or passport. This helps us verify your booking and ensures a smooth check-in at the event.",
+    "firstNamePlaceholder": "First name",
+    "firstNameLabel": "First Name",
+    "lastNameTooltip": "Please write your last name",
+    "lastNamePlaceholder": "Last Name",
+    "lastNameLabel": "Last Name"
+  },
+  "validation": {
+    "firstName": "First name must be at least 3 characters",
+    "lastName": "Last name must be at least 3 characters",
+    "email": "Email must be valid",
+    "phone": "Phone number must be at least 8 characters",
+    "quantity": "Quantity must be at least 1"
+  },
+  "nextButton": {
+    "label": "Next",
+    "firstStep": "Please fill in your first name and last name",
+    "secondStep": "Please fill in a valid email and phone number",
+    "thirdStep": "Please select an event and a ticket tier",
+    "fourthStep": "Please select a ticket quantity of 1 or more"
+  },
+  "stepper": {
+    "requiredFields": "Fields with",
+    "requiredFieldsEnd": "are mandatory",
+    "previous": "Previous",
+    "checkout": "Checkout",
+    "checkoutTooltip": "Please select a ticket quantity of 1 or more",
+    "bookingConfirmed": "🎟️ Booking confirmed! See you in Berlin."
+  },
+
+  "addons": {
+    "vip-tent": {
+      "name": "VIP Tent Access",
+      "description": "Chill in a private shaded tent with your own bar"
+    },
+    "festival-tattoo": {
+      "name": "Festival Tattoo",
+      "description": "Get inked by a resident artist, festival-exclusive design"
+    },
+    "glow-bracelet": {
+      "name": "LED Glow Bracelet",
+      "description": "Light-up bracelet synced to the set, yours to keep"
+    },
+    "shuttle-pass": {
+      "name": "Shuttle Pass",
+      "description": "Unlimited rides between the campsite and main stage"
+    }
+  }
 }

@@ -1,0 +1,144 @@
+{
+  "eventTier": {
+    "info": "Wählen Sie das Festival aus, das Sie besuchen möchten, und wählen Sie eine Ticketkategorie. Jede Kategorie bietet unterschiedliche Vorteile und Zugangslevel. Wählen Sie die Option, die zu Ihrem Festivalerlebnis passt.",
+    "event": "Event",
+    "chooseFestival": "Wählen Sie Ihr Festivalerlebnis",
+    "lineupAZ": "Line-up A-Z",
+    "moreTBA": "Weitere folgen",
+    "selectYourPass": "Pass auswählen",
+    "chooseTicketTier": "Wählen Sie Ihre Ticketkategorie",
+    "spotsLeft": "Plätze übrig"
+  },
+  "bookingSummary": {
+    "attendee": "Teilnehmer",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "eventAndTier": "Event & Ticketkategorie",
+    "event": "Event",
+    "dates": "Termine",
+    "tier": "Ticketkategorie",
+    "tierPrice": "Ticketpreis",
+    "quantity": "Menge",
+    "addons": "Zusatzoptionen",
+    "total": "Gesamt",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen"
+  },
+  "confirmation": {
+    "welcome": "Willkommen in Berlin",
+    "bookingConfirmed": "Ihre Buchung ist bestätigt. Wir sehen uns auf der Tanzfläche.",
+    "attendee": "Teilnehmer",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "eventAndTier": "Event & Ticketkategorie",
+    "event": "Event",
+    "dates": "Termine",
+    "tier": "Ticketkategorie",
+    "tierPrice": "Ticketpreis",
+    "quantity": "Menge",
+    "addons": "Zusatzoptionen",
+    "totalPaid": "Gesamtbetrag",
+    "goBackHome": "Zurück zur Startseite"
+  },
+  "footer": {
+    "terms": "Bedingungen",
+    "privacy": "Datenschutz",
+    "support": "Support",
+    "copyright": "© 2026 Voltage"
+  },
+  "header": {
+    "home": "Startseite",
+    "booking": "Buchung",
+    "festivals": "Festivals",
+    "info": "Infos",
+    "account": "Konto"
+  },
+  "home": {
+    "title": "Die Zukunft Klingt Genau So",
+    "subtitle": "Underground-Vibes. Weltklasse-Künstler. Unvergessliche Momente.",
+    "bookNow": "Jetzt Buchen",
+    "techno": "Techno",
+    "community": "Community",
+    "freedom": "Freiheit"
+  },
+  "progressBar": {
+    "personalInfo": "Persönliche Daten",
+    "contact": "Kontakt",
+    "eventTier": "Event & Ticketkategorie",
+    "order": "Bestellung"
+  },
+  "checkoutModal": {
+    "confirmText": "Möchten Sie wirklich fortfahren?"
+  },
+  "contact": {
+    "emailTooltip": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+    "info": "Bitte geben Sie eine gültige E-Mail-Adresse und Telefonnummer an. Wir verwenden diese, um Ihre Ticketbestätigung und wichtige Updates zum Event zu senden.",
+    "emailPlaceholder": "E-Mail",
+    "emailLabel": "E-Mail",
+    "phoneTooltip": "Bitte geben Sie Ihre Telefonnummer ein",
+    "phonePlaceholder": "Telefon",
+    "phoneLabel": "Telefonnummer"
+  },
+  "order": {
+    "info": "Wählen Sie die Anzahl der benötigten Tickets. Zusatzoptionen sind optional und können Ihr Festivalerlebnis verbessern, sind aber nicht erforderlich, um Ihre Bestellung abzuschließen.",
+    "ticketQuantity": "Ticketanzahl",
+    "ticketQuantitySubtitle": "Wie viele Tickets benötigen Sie?",
+    "quantityTooltip": "Bitte wählen Sie eine Ticketanzahl von 1 oder mehr",
+    "quantityPlaceholder": "Wie viele Tickets?",
+    "quantityLabel": "Menge",
+    "optionalAddons": "Optionale Zusatzoptionen",
+    "addonsSubtitle": "Verbessern Sie Ihr Festivalerlebnis"
+  },
+  "personalInfo": {
+    "firstNameTooltip": "Bitte geben Sie Ihren Vornamen ein",
+    "info": "Bitte geben Sie Ihren vollständigen Namen so ein, wie er auf Ihrem Ausweis oder Reisepass steht. Dies hilft uns, Ihre Buchung zu überprüfen und einen reibungslosen Check-in beim Event zu gewährleisten.",
+    "firstNamePlaceholder": "Vorname",
+    "firstNameLabel": "Vorname",
+    "lastNameTooltip": "Bitte geben Sie Ihren Nachnamen ein",
+    "lastNamePlaceholder": "Nachname",
+    "lastNameLabel": "Nachname"
+  },
+  "validation": {
+    "firstName": "Der Vorname muss mindestens 3 Zeichen lang sein",
+    "lastName": "Der Nachname muss mindestens 3 Zeichen lang sein",
+    "email": "Die E-Mail-Adresse muss gültig sein",
+    "phone": "Die Telefonnummer muss mindestens 8 Zeichen lang sein",
+    "quantity": "Die Anzahl muss mindestens 1 betragen"
+  },
+  "nextButton": {
+    "label": "Weiter",
+    "firstStep": "Bitte geben Sie Ihren Vor- und Nachnamen ein",
+    "secondStep": "Bitte geben Sie eine gültige E-Mail-Adresse und Telefonnummer ein",
+    "thirdStep": "Bitte wählen Sie ein Event und eine Ticketkategorie aus",
+    "fourthStep": "Bitte wählen Sie eine Ticketanzahl von 1 oder mehr"
+  },
+  "stepper": {
+    "requiredFields": "Mit",
+    "requiredFieldsEnd": "gekennzeichnete Felder sind Pflichtfelder",
+    "previous": "Zurück",
+    "checkout": "Zur Kasse",
+    "checkoutTooltip": "Bitte wählen Sie eine Ticketanzahl von 1 oder mehr",
+    "bookingConfirmed": "🎟️ Buchung bestätigt! Wir sehen uns in Berlin."
+  },
+
+  "addons": {
+    "vip-tent": {
+      "name": "VIP-Zelt-Zugang",
+      "description": "Entspann dich in einem privaten schattigen Zelt mit eigener Bar"
+    },
+    "festival-tattoo": {
+      "name": "Festival-Tattoo",
+      "description": "Lass dich von einem Resident-Künstler tätowieren, exklusives Festival-Design"
+    },
+    "glow-bracelet": {
+      "name": "LED-Leuchtarmband",
+      "description": "Leuchtarmband, das mit dem Set synchronisiert wird, zum Behalten"
+    },
+    "shuttle-pass": {
+      "name": "Shuttle-Pass",
+      "description": "Unbegrenzte Fahrten zwischen Campingplatz und Hauptbühne"
+    }
+  }
+}
