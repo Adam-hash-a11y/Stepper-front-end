@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -44,15 +45,19 @@ const Copyright = styled.p`
 `;
 
 export const Footer: React.FunctionComponent = () => {
+  const { t } = useTranslation();
+
   return (
     <FooterWrapper>
       <Logo>Voltage</Logo>
+
       <Links>
-        <LinkItem>Terms</LinkItem>
-        <LinkItem>Privacy</LinkItem>
-        <LinkItem>Support</LinkItem>
+        <LinkItem>{t("footer.terms")}</LinkItem>
+        <LinkItem>{t("footer.privacy")}</LinkItem>
+        <LinkItem>{t("footer.support")}</LinkItem>
       </Links>
-      <Copyright>© 2026 Voltage</Copyright>
+
+      <Copyright>{t("footer.copyright")}</Copyright>
     </FooterWrapper>
   );
 };
