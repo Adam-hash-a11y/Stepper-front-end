@@ -1,4 +1,5 @@
 import type React from "react";
+import { useTranslation } from "react-i18next";
 import type { State } from "../../stepper/reducer";
 import { StepperInput } from "../../shared/stepperField/StepperField";
 import { InputType } from "../../stepper/types";
@@ -21,40 +22,48 @@ export const ContactStep: React.FunctionComponent<Props> = ({
   touched,
   errors,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Tooltip anchorSelect="#EmailID" place="top">
-        Please Write your Email
+        {t("contact.emailTooltip")}
       </Tooltip>
-      <InfoCallout text="Please provide a valid email address and phone number. We'll use these to send your ticket confirmation and any important updates about the event." />
+
+      <InfoCallout text={t("contact.info")} />
+
       <StepperInput
         handleFiledChange={handleInputChange}
         name="email"
         type={InputType.TEXT}
-        placeholder="Email"
-        label="Email"
+        placeholder={t("contact.emailPlaceholder")}
+        label={t("contact.emailLabel")}
         id="EmailID"
         value={attendee.email}
         handleBlur={handleBlur}
         error={errors.email}
         touched={touched.email}
       />
+
       {touched.email && errors.email && <FormInputError error={errors.email} />}
+
       <Tooltip anchorSelect="#PhoneID" place="top">
-        Please Write your Phone number
+        {t("contact.phoneTooltip")}
       </Tooltip>
+
       <StepperInput
         handleFiledChange={handleInputChange}
         name="phone"
         type={InputType.TEXT}
-        placeholder="Phone"
-        label="Phone Number"
+        placeholder={t("contact.phonePlaceholder")}
+        label={t("contact.phoneLabel")}
         id="PhoneID"
         value={attendee.phone}
         handleBlur={handleBlur}
         error={errors.phone}
         touched={touched.phone}
       />
+
       {touched.phone && errors.phone && <FormInputError error={errors.phone} />}
     </>
   );

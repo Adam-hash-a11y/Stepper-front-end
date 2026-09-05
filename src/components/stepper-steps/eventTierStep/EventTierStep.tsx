@@ -201,6 +201,7 @@ const Chevron = styled.span`
   font-size: 16px;
   text-align: right;
 `;
+
 const RequiredStar = styled.span`
   color: #dc2626;
 `;
@@ -212,20 +213,22 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
   handleTierSelection,
 }) => {
   const selectedEvent = events.find((event) => event.id === selection.eventId);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>
-      <InfoCallout text="Select the festival you'd like to attend and choose a ticket tier. Each tier includes different perks and access levels, so pick the one that fits your experience." />
+      <InfoCallout text={t("eventTier.info")} />
 
-      <SectionTitle>{t("event")}</SectionTitle>
+      <SectionTitle>{t("eventTier.event")}</SectionTitle>
+
       <SectionSubtitle>
-        Choose your festival experience <RequiredStar>*</RequiredStar>
+        {t("eventTier.chooseFestival")} <RequiredStar>*</RequiredStar>
       </SectionSubtitle>
 
       <EventGrid>
         {events.map((event) => {
           const Icon = iconMap[event.icon] ?? PiCube;
+
           return (
             <EventCard
               key={event.id}
@@ -236,16 +239,23 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
               <IconWrap>
                 <Icon size={48} />
               </IconWrap>
+
               <EventName>{event.name}</EventName>
               <EventSubtitle>{event.subtitle}</EventSubtitle>
               <DateRange>{event.dateRange}</DateRange>
               <Location>{event.location}</Location>
+
               <Divider />
-              <LineupLabel>Lineup A-Z</LineupLabel>
+
+              <LineupLabel>{t("eventTier.lineupAZ")}</LineupLabel>
+
               {event.djs.slice(0, 4).map((dj) => (
                 <DjName key={dj.name}>{dj.name}</DjName>
               ))}
-              {event.djs.length > 4 && <MoreTba>+ More TBA</MoreTba>}
+
+              {event.djs.length > 4 && (
+                <MoreTba>+ {t("eventTier.moreTBA")}</MoreTba>
+              )}
             </EventCard>
           );
         })}
@@ -253,9 +263,10 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
 
       {selectedEvent && (
         <>
-          <SectionTitle>Select Your Pass</SectionTitle>
+          <SectionTitle>{t("eventTier.selectYourPass")}</SectionTitle>
+
           <SectionSubtitle>
-            Choose your ticket tier <RequiredStar>*</RequiredStar>
+            {t("eventTier.chooseTicketTier")} <RequiredStar>*</RequiredStar>
           </SectionSubtitle>
 
           <TierList>
@@ -269,12 +280,18 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
                 <RadioOuter selected={selection.tierId === tier.id}>
                   <RadioInner selected={selection.tierId === tier.id} />
                 </RadioOuter>
+
                 <TierNameGroup>
                   <TierName>{tier.name}</TierName>
                   <TierMeta>{tier.subtitle}</TierMeta>
                 </TierNameGroup>
+
                 <TierPrice>€{tier.price}.00</TierPrice>
-                <TierSpots>{tier.remaining} Spots Left</TierSpots>
+
+                <TierSpots>
+                  {tier.remaining} {t("eventTier.spotsLeft")}
+                </TierSpots>
+
                 <Chevron>›</Chevron>
               </TierRow>
             ))}
