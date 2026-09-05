@@ -1,5 +1,6 @@
 import React, { useReducer, useState } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { initialState, stepperReducer } from "./reducer";
 import {
   NEXT_STEP,
@@ -24,7 +25,6 @@ import { ConfirmationScreen } from "../confirmationScreen/ConfirmationScreen";
 import { Bounce, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
-import { NEXT_BUTTON_TOOLTIP } from "./constants";
 import { NextButton } from "../nextButton/NextButton";
 
 const PageWrapper = styled.div`
@@ -61,9 +61,11 @@ const RequiredStar = styled.span`
 `;
 
 export const Stepper: React.FunctionComponent = () => {
+  const { t } = useTranslation();
   const [state, dispatch] = useReducer(stepperReducer, initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+
   console.log(state);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,6 +99,7 @@ export const Stepper: React.FunctionComponent = () => {
       },
     });
   };
+
   const handleEventSelect = (e: React.MouseEvent<HTMLDivElement>) => {
     dispatch({
       type: SET_SELECTION,
@@ -125,6 +128,7 @@ export const Stepper: React.FunctionComponent = () => {
       dispatch({ type: NEXT_STEP });
     }
   };
+
   const handlePrevStep = () => {
     dispatch({ type: PREV_STEP });
   };
@@ -132,6 +136,7 @@ export const Stepper: React.FunctionComponent = () => {
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -139,7 +144,8 @@ export const Stepper: React.FunctionComponent = () => {
   const handleConfirmBooking = (totalPrice: number) => {
     dispatch({ type: SUBMIT_BOOKING, payload: { totalPrice } });
     setIsModalOpen(false);
-    toast.success("🎟️ Booking confirmed! See you in Berlin.", {
+
+    toast.success(t("stepper.bookingConfirmed"), {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -151,10 +157,12 @@ export const Stepper: React.FunctionComponent = () => {
       transition: Bounce,
     });
   };
+
   const handleStartOver = () => {
     dispatch({ type: START_OVER });
     navigate("/");
   };
+
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     dispatch({ type: SET_TOUCHED, field: e.target.name });
   };
@@ -175,9 +183,12 @@ export const Stepper: React.FunctionComponent = () => {
       ) : (
         <>
           <ProgressBar step={state.currentStep} />
+
           <RequiredFieldsNote>
-            Fields with <RequiredStar>*</RequiredStar> are mandatory
+            {t("stepper.requiredFields")} <RequiredStar>*</RequiredStar>{" "}
+            {t("stepper.requiredFieldsEnd")}
           </RequiredFieldsNote>
+
           <StepContent>
             {state.currentStep === 1 && (
               <PersonalInfoStep
@@ -188,6 +199,7 @@ export const Stepper: React.FunctionComponent = () => {
                 errors={state.errors}
               />
             )}
+
             {state.currentStep === 2 && (
               <ContactStep
                 attendee={state.attendee}
@@ -206,6 +218,7 @@ export const Stepper: React.FunctionComponent = () => {
                 handleTierSelection={handleSelectTier}
               />
             )}
+
             {state.currentStep === 4 && (
               <OrderStep
                 order={state.order}
@@ -223,7 +236,7 @@ export const Stepper: React.FunctionComponent = () => {
             {state.currentStep !== 1 && (
               <StepperButton
                 handleButton={handlePrevStep}
-                label="Previous"
+                label={t("stepper.previous")}
                 variant="outline"
               />
             )}
@@ -232,15 +245,17 @@ export const Stepper: React.FunctionComponent = () => {
               <>
                 {state.disabled && (
                   <Tooltip anchorSelect="#CheckoutID">
-                    {NEXT_BUTTON_TOOLTIP[4]}
+                    {t("stepper.checkoutTooltip")}
                   </Tooltip>
                 )}
+
                 <StepperButton
                   handleButton={handleOpenModal}
                   disabled={state.disabled}
-                  label="Checkout"
+                  label={t("stepper.checkout")}
                   id="CheckoutID"
                 />
+
                 {isModalOpen && (
                   <CheckoutModal isOpen={isModalOpen}>
                     <BookingSummary
