@@ -1,4 +1,5 @@
 import type React from "react";
+import { useTranslation } from "react-i18next";
 import { StepperInput } from "../../shared/stepperField/StepperField";
 import type { State } from "../../stepper/reducer";
 import { InputType } from "../../stepper/types";
@@ -21,42 +22,50 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
   touched,
   errors,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Tooltip anchorSelect="#FirstNameID" place="top">
-        Please Write your Firstname
+        {t("personalInfo.firstNameTooltip")}
       </Tooltip>
-      <InfoCallout text="Please enter your full legal name as it appears on your ID or passport. This helps us verify your booking and ensures a smooth check-in at the event." />
+
+      <InfoCallout text={t("personalInfo.info")} />
+
       <StepperInput
         handleFiledChange={handleInputChange}
         name="firstName"
         type={InputType.TEXT}
-        placeholder="First name"
-        label="First Name"
+        placeholder={t("personalInfo.firstNamePlaceholder")}
+        label={t("personalInfo.firstNameLabel")}
         id="FirstNameID"
         value={attendee.firstName}
         handleBlur={handleBlur}
         error={errors.firstName}
         touched={touched.firstName}
       />
+
       {touched.firstName && errors.firstName && (
         <FormInputError error={errors.firstName} />
       )}
+
       <Tooltip anchorSelect="#LastNameID" place="top">
-        Please Write your Lastname
+        {t("personalInfo.lastNameTooltip")}
       </Tooltip>
+
       <StepperInput
         handleFiledChange={handleInputChange}
         name="lastName"
         type={InputType.TEXT}
-        placeholder="Last Name"
-        label="Last Name"
+        placeholder={t("personalInfo.lastNamePlaceholder")}
+        label={t("personalInfo.lastNameLabel")}
         id="LastNameID"
         value={attendee.lastName}
         handleBlur={handleBlur}
         error={errors.lastName}
         touched={touched.lastName}
       />
+
       {touched.lastName && errors.lastName && (
         <FormInputError error={errors.lastName} />
       )}

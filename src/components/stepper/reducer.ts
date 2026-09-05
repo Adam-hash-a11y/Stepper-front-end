@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import {
   isValidFirstName,
   isValidLastName,
@@ -201,26 +202,26 @@ export const initialState: State = {
   addons: [
     {
       id: "vip-tent",
-      name: "VIP Tent Access",
-      description: "Chill in a private shaded tent with your own bar",
+      name: t("addons.vipTent.name"),
+      description: t("addons.vipTent.description"),
       price: 45,
     },
     {
       id: "festival-tattoo",
-      name: "Festival Tattoo",
-      description: "Get inked by a resident artist, festival-exclusive design",
+      name: t("addons.festivalTattoo.name"),
+      description: t("addons.festivalTattoo.description"),
       price: 25,
     },
     {
       id: "glow-bracelet",
-      name: "LED Glow Bracelet",
-      description: "Light-up bracelet synced to the set, yours to keep",
+      name: t("addons.glowBracelet.name"),
+      description: t("addons.glowBracelet.description"),
       price: 15,
     },
     {
       id: "shuttle-pass",
-      name: "Shuttle Pass",
-      description: "Unlimited rides between the campsite and main stage",
+      name: t("addons.shuttlePass.name"),
+      description: t("addons.shuttlePass.description"),
       price: 20,
     },
   ],
@@ -279,10 +280,10 @@ export const stepperReducer = (state: State, action: any) => {
 
       const newErrors = {
         ...state.errors,
-        firstName: isValidFirstName(newState.attendee.firstName),
-        lastName: isValidLastName(newState.attendee.lastName),
-        email: isValidEmail(newState.attendee.email),
-        phone: isValidPhoneNumber(newState.attendee.phone),
+        firstName: isValidFirstName(newState.attendee.firstName, t),
+        lastName: isValidLastName(newState.attendee.lastName, t),
+        email: isValidEmail(newState.attendee.email, t),
+        phone: isValidPhoneNumber(newState.attendee.phone, t),
       };
 
       return {
@@ -305,7 +306,7 @@ export const stepperReducer = (state: State, action: any) => {
 
       const newErrors = {
         ...state.errors,
-        quantity: isValidQuantity(Number(newState.order.quantity)),
+        quantity: isValidQuantity(Number(newState.order.quantity), t),
       };
 
       return {
@@ -350,25 +351,24 @@ export const stepperReducer = (state: State, action: any) => {
       };
       return newState;
     }
-    case NEXT_STEP:
-      {
-        const newStep = state.currentStep + 1;
-        return {
-          ...state,
-          currentStep: newStep,
-          disabled:
-            newStep === 1
-              ? state.errors.firstName !== "" || state.errors.lastName !== ""
-              : newStep === 2
-                ? state.errors.email !== "" || state.errors.phone !== ""
-                : newStep === 3
-                  ? state.selection.eventId === "" ||
-                    state.selection.tierId === ""
-                  : newStep === 4
-                    ? isValidQuantity(Number(state.order.quantity)) !== ""
-                    : false,
-        };
-      }
+    case NEXT_STEP: {
+      const newStep = state.currentStep + 1;
+      return {
+        ...state,
+        currentStep: newStep,
+        disabled:
+          newStep === 1
+            ? state.errors.firstName !== "" || state.errors.lastName !== ""
+            : newStep === 2
+              ? state.errors.email !== "" || state.errors.phone !== ""
+              : newStep === 3
+                ? state.selection.eventId === "" ||
+                  state.selection.tierId === ""
+                : newStep === 4
+                  ? isValidQuantity(Number(state.order.quantity), t) !== ""
+                  : false,
+      };
+    }
     case PREV_STEP: {
       if (state.currentStep === 1) {
         return state;
@@ -386,7 +386,7 @@ export const stepperReducer = (state: State, action: any) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? isValidQuantity(Number(state.order.quantity)) !== ""
+                  ? isValidQuantity(Number(state.order.quantity), t) !== ""
                   : false,
       };
     }
@@ -409,19 +409,23 @@ export const stepperReducer = (state: State, action: any) => {
 
       switch (action.field) {
         case "firstName":
-          newErrors.firstName = isValidFirstName(state.attendee.firstName);
+          newErrors.firstName = isValidFirstName(state.attendee.firstName, t);
           break;
+
         case "lastName":
-          newErrors.lastName = isValidLastName(state.attendee.lastName);
+          newErrors.lastName = isValidLastName(state.attendee.lastName, t);
           break;
+
         case "email":
-          newErrors.email = isValidEmail(state.attendee.email);
+          newErrors.email = isValidEmail(state.attendee.email, t);
           break;
+
         case "phone":
-          newErrors.phone = isValidPhoneNumber(state.attendee.phone);
+          newErrors.phone = isValidPhoneNumber(state.attendee.phone, t);
           break;
+
         case "quantity":
-          newErrors.quantity = isValidQuantity(Number(state.order.quantity));
+          newErrors.quantity = isValidQuantity(Number(state.order.quantity), t);
           break;
       }
 

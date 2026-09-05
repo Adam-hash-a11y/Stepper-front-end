@@ -1,4 +1,5 @@
 import type React from "react";
+import { useTranslation } from "react-i18next";
 import { StepperButton } from "../shared/stepperButton/StepperButton";
 import { Tooltip } from "react-tooltip";
 import { NEXT_BUTTON_TOOLTIP } from "../stepper/constants";
@@ -14,28 +15,31 @@ export const NextButton: React.FunctionComponent<Props> = ({
   handleNextStep,
   currentStep,
 }) => {
+  const { t } = useTranslation();
+
   if (disabled === true) {
     return (
       <>
         <Tooltip anchorSelect="#NextID">
-          {NEXT_BUTTON_TOOLTIP[currentStep]}
+          {t(NEXT_BUTTON_TOOLTIP[currentStep])}
         </Tooltip>
+
         <StepperButton
           handleButton={handleNextStep}
-          label="Next"
+          label={t("nextButton.label")}
           disabled={disabled}
           id="NextID"
         />
       </>
     );
-  } else {
-    return (
-      <StepperButton
-        handleButton={handleNextStep}
-        label="Next"
-        disabled={disabled}
-        id="NextID"
-      />
-    );
   }
+
+  return (
+    <StepperButton
+      handleButton={handleNextStep}
+      label={t("nextButton.label")}
+      disabled={disabled}
+      id="NextID"
+    />
+  );
 };

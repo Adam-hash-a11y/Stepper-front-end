@@ -1,5 +1,6 @@
 import type React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import type { State } from "../../stepper/reducer";
 import { StepperInput } from "../../shared/stepperField/StepperField";
 import { InputType } from "../../stepper/types";
@@ -106,44 +107,56 @@ export const OrderStep: React.FunctionComponent<Props> = ({
   touched,
   errors,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <InfoCallout text="Choose how many tickets you need. Add-ons are optional and can enhance your festival experience, but they're not required to complete your order." />
-      <SectionTitle>Ticket Quantity</SectionTitle>
-      <SectionSubtitle>How many tickets do you need</SectionSubtitle>
+      <InfoCallout text={t("order.info")} />
+
+      <SectionTitle>{t("order.ticketQuantity")}</SectionTitle>
+      <SectionSubtitle>{t("order.ticketQuantitySubtitle")}</SectionSubtitle>
+
       <Tooltip anchorSelect="#QuantityID" place="top">
-        Please select a ticket quantity of 1 or more
+        {t("order.quantityTooltip")}
       </Tooltip>
+
       <StepperInput
         handleFiledChange={handleTicketQuantity}
         name="quantity"
         type={InputType.NUMBER}
-        placeholder="How many tickets?"
-        label="Quantity"
+        placeholder={t("order.quantityPlaceholder")}
+        label={t("order.quantityLabel")}
         id="QuantityID"
         value={order.quantity}
         handleBlur={handleBlur}
         error={errors.quantity}
         touched={touched.quantity}
       />
+
       {touched.quantity && errors.quantity && (
         <FormInputError error={errors.quantity} />
       )}
 
-      <SectionTitle>Optional Add-Ons</SectionTitle>
-      <SectionSubtitle>Enhance your festival experience</SectionSubtitle>
+      <SectionTitle>{t("order.optionalAddons")}</SectionTitle>
+      <SectionSubtitle>{t("order.addonsSubtitle")}</SectionSubtitle>
 
       <AddonList>
         {addons.map((addon) => {
           const checked = order.addons.includes(addon.id);
+
           return (
             <AddonRow key={addon.id} checked={checked}>
               <CheckboxOuter checked={checked}>{checked && "✓"}</CheckboxOuter>
+
               <AddonInfo>
-                <AddonName>{addon.name}</AddonName>
-                <AddonDescription>{addon.description}</AddonDescription>
+                <AddonName>{t(`addons.${addon.id}.name`)}</AddonName>
+                <AddonDescription>
+                  {t(`addons.${addon.id}.description`)}
+                </AddonDescription>
               </AddonInfo>
+
               <AddonPrice>€{addon.price}.00</AddonPrice>
+
               <HiddenCheckbox
                 type="checkbox"
                 value={addon.id}

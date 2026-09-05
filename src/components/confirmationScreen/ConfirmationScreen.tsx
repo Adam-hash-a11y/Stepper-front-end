@@ -2,6 +2,7 @@ import type React from "react";
 import styled from "styled-components";
 import type { State } from "../stepper/reducer";
 import { StepperButton } from "../shared/stepperButton/StepperButton";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   attendee: State["attendee"];
@@ -112,6 +113,8 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
   bookingId,
   handleStartOver,
 }) => {
+  const { t } = useTranslation();
+
   const selectedEvent = events.find((event) => event.id === selection.eventId);
   const selectedTier = selectedEvent?.tiers.find(
     (tier) => tier.id === selection.tierId,
@@ -122,56 +125,66 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
 
   return (
     <Wrapper>
-      <WelcomeTitle>Welcome To Berlin</WelcomeTitle>
-      <WelcomeSubtitle>
-        Your booking is confirmed. See you on the floor.
-      </WelcomeSubtitle>
+      <WelcomeTitle>{t("confirmation.welcome")}</WelcomeTitle>
+
+      <WelcomeSubtitle>{t("confirmation.bookingConfirmed")}</WelcomeSubtitle>
+
       <BookingIdBadge>{bookingId}</BookingIdBadge>
 
-      <SectionTitle>Attendee</SectionTitle>
+      <SectionTitle>{t("confirmation.attendee")}</SectionTitle>
+
       <Row>
-        <Label>Name</Label>
+        <Label>{t("confirmation.name")}</Label>
         <Value>
           {attendee.firstName} {attendee.lastName}
         </Value>
       </Row>
+
       <Row>
-        <Label>Email</Label>
+        <Label>{t("confirmation.email")}</Label>
         <Value>{attendee.email}</Value>
       </Row>
+
       <Row>
-        <Label>Phone</Label>
+        <Label>{t("confirmation.phone")}</Label>
         <Value>{attendee.phone}</Value>
       </Row>
 
       <Divider />
 
-      <SectionTitle>Event & Tier</SectionTitle>
+      <SectionTitle>{t("confirmation.eventAndTier")}</SectionTitle>
+
       <Row>
-        <Label>Event</Label>
+        <Label>{t("confirmation.event")}</Label>
         <Value>{selectedEvent?.name}</Value>
       </Row>
+
       <Row>
-        <Label>Dates</Label>
+        <Label>{t("confirmation.dates")}</Label>
         <Value>{selectedEvent?.dateRange}</Value>
       </Row>
+
       <Row>
-        <Label>Tier</Label>
+        <Label>{t("confirmation.tier")}</Label>
         <Value>{selectedTier?.name}</Value>
       </Row>
+
       <Row>
-        <Label>Tier Price</Label>
+        <Label>{t("confirmation.tierPrice")}</Label>
         <Value>€{selectedTier?.price}.00</Value>
       </Row>
+
       <Row>
-        <Label>Quantity</Label>
+        <Label>{t("confirmation.quantity")}</Label>
         <Value>{order.quantity}</Value>
       </Row>
 
       {selectedAddons.length > 0 && (
         <>
           <Divider />
-          <SectionTitle>Add-Ons</SectionTitle>
+
+          <SectionTitle>{t("confirmation.addons")}</SectionTitle>
+
           {selectedAddons.map((addon) => (
             <Row key={addon.id}>
               <Label>{addon.name}</Label>
@@ -184,11 +197,14 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
       <Divider />
 
       <TotalRow>
-        <TotalLabel>Total Paid</TotalLabel>
+        <TotalLabel>{t("confirmation.totalPaid")}</TotalLabel>
         <TotalPrice>€{totalPrice}.00</TotalPrice>
       </TotalRow>
 
-      <StepperButton handleButton={handleStartOver} label="Go Back Home" />
+      <StepperButton
+        handleButton={handleStartOver}
+        label={t("confirmation.goBackHome")}
+      />
     </Wrapper>
   );
 };

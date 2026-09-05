@@ -2,6 +2,7 @@ import type React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 const Hero = styled.section`
   position: relative;
@@ -92,25 +93,30 @@ const SideText = styled.div`
 `;
 
 export const HomePage: React.FunctionComponent = () => {
+  const { t } = useTranslation();
+
   return (
     <Hero>
       <Overlay />
+
       <Content>
         <AccentLine />
-        <Title>The Future Sounds Like This</Title>
-        <Subtext>
-          Underground vibes. World class artists. Unforgettable moments.
-        </Subtext>
+
+        <Title>{t("home.title")}</Title>
+
+        <Subtext>{t("home.subtitle")}</Subtext>
+
         <BookButton to="/booking">
-          Book Now <FaArrowRight />
+          {t("home.bookNow")} <FaArrowRight />
         </BookButton>
       </Content>
+
       <SideText>
-        <span>Techno</span>
+        <span>{t("home.techno")}</span>
         <span>/</span>
-        <span>Community</span>
+        <span>{t("home.community")}</span>
         <span>/</span>
-        <span>Freedom</span>
+        <span>{t("home.freedom")}</span>
       </SideText>
     </Hero>
   );

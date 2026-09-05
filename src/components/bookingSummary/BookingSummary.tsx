@@ -2,6 +2,7 @@ import type React from "react";
 import type { State } from "../stepper/reducer";
 import { StepperButton } from "../shared/stepperButton/StepperButton";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   attendee: State["attendee"];
@@ -101,6 +102,8 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
   handleValidate,
   handleClose,
 }) => {
+  const { t } = useTranslation();
+
   const selectedEvent = events.find((event) => event.id === selection.eventId);
   const selectedTier = selectedEvent?.tiers.find(
     (tier) => tier.id === selection.tierId,
@@ -118,53 +121,63 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
 
   return (
     <div>
-      <SectionTitle>Attendee</SectionTitle>
+      <SectionTitle>{t("bookingSummary.attendee")}</SectionTitle>
+
       <Row>
-        <Label>Name</Label>
+        <Label>{t("bookingSummary.name")}</Label>
         <Value>
           {attendee.firstName} {attendee.lastName}
         </Value>
       </Row>
+
       <Row>
-        <Label>Email</Label>
+        <Label>{t("bookingSummary.email")}</Label>
         <Value>{attendee.email}</Value>
       </Row>
+
       <Row>
-        <Label>Phone</Label>
+        <Label>{t("bookingSummary.phone")}</Label>
         <Value>{attendee.phone}</Value>
       </Row>
 
       <Divider />
 
-      <SectionTitle>Event & Tier</SectionTitle>
+      <SectionTitle>{t("bookingSummary.eventAndTier")}</SectionTitle>
+
       <Row>
-        <Label>Event</Label>
+        <Label>{t("bookingSummary.event")}</Label>
         <Value>{selectedEvent?.name}</Value>
       </Row>
+
       <Row>
-        <Label>Dates</Label>
+        <Label>{t("bookingSummary.dates")}</Label>
         <Value>{selectedEvent?.dateRange}</Value>
       </Row>
+
       <Row>
-        <Label>Tier</Label>
+        <Label>{t("bookingSummary.tier")}</Label>
         <Value>{selectedTier?.name}</Value>
       </Row>
+
       <Row>
-        <Label>Tier Price</Label>
+        <Label>{t("bookingSummary.tierPrice")}</Label>
         <Value>€{selectedTier?.price}.00</Value>
       </Row>
+
       <Row>
-        <Label>Quantity</Label>
+        <Label>{t("bookingSummary.quantity")}</Label>
         <Value>{order.quantity}</Value>
       </Row>
 
       {selectedAddons.length > 0 && (
         <>
           <Divider />
-          <SectionTitle>Add-Ons</SectionTitle>
+
+          <SectionTitle>{t("bookingSummary.addons")}</SectionTitle>
+
           {selectedAddons.map((addon) => (
             <Row key={addon.id}>
-              <Label>{addon.name}</Label>
+              <Label>{t(`addons.${addon.id}.name`)}</Label>
               <Value>€{addon.price}.00</Value>
             </Row>
           ))}
@@ -174,7 +187,7 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
       <Divider />
 
       <TotalRow>
-        <TotalLabel>Total</TotalLabel>
+        <TotalLabel>{t("bookingSummary.total")}</TotalLabel>
         <TotalPrice>€{totalPrice}.00</TotalPrice>
       </TotalRow>
 
@@ -183,12 +196,13 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
       <Actions>
         <StepperButton
           handleButton={handleClose}
-          label="Cancel"
+          label={t("bookingSummary.cancel")}
           variant="outline"
         />
+
         <StepperButton
           handleButton={() => handleValidate(totalPrice)}
-          label="Confirm"
+          label={t("bookingSummary.confirm")}
         />
       </Actions>
     </div>
