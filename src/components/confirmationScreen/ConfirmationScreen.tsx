@@ -187,7 +187,7 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
 
           {selectedAddons.map((addon) => (
             <Row key={addon.id}>
-              <Label>{addon.name}</Label>
+              <Label>{t(`addons.${addon.id}.name`)}</Label>
               <Value>€{addon.price}.00</Value>
             </Row>
           ))}
