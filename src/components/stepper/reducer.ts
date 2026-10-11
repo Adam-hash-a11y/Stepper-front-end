@@ -16,6 +16,7 @@ import {
   START_OVER,
   SUBMIT_BOOKING,
   TOGGLE_ADDON,
+  type Action,
 } from "./actions";
 
 interface Dj {
@@ -267,7 +268,7 @@ export const initialState: State = {
   disabled: true,
   submitted: false,
 };
-export const stepperReducer = (state: State, action: any) => {
+export const stepperReducer = (state: State, action: Action) => {
   switch (action.type) {
     case SET_ATTENDEE_FIELD: {
       const newState = {
@@ -316,7 +317,7 @@ export const stepperReducer = (state: State, action: any) => {
       };
     }
     case SET_SELECTION: {
-      let newSelection = {
+      const newSelection = {
         ...state.selection,
         [action.payload.name]: action.payload.value,
       };
