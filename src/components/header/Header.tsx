@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
