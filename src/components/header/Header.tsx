@@ -70,19 +70,6 @@ const NavItem = styled(NavLink)`
   }
 `;
 
-const NavSpan = styled.span`
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #ffffff;
-  cursor: pointer;
-
-  &:hover {
-    color: #7c3aed;
-  }
-`;
-
 const LanguageWrapper = styled.div`
   position: relative;
 `;
@@ -194,12 +181,6 @@ export const Header: React.FunctionComponent = () => {
         <NavItem data-testid="header-nav-link" to="/booking">
           {t("header.booking")}
         </NavItem>
-
-        <NavSpan>{t("header.festivals")}</NavSpan>
-
-        <NavSpan>{t("header.info")}</NavSpan>
-
-        <NavSpan>{t("header.account")}</NavSpan>
       </Nav>
 
       <LanguageWrapper>
