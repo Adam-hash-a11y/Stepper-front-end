@@ -46,6 +46,7 @@ export const StepperButton: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Button
+      data-testid="stepper-button"
       id={id}
       onClick={handleButton}
       disabled={disabled}

@@ -21,7 +21,9 @@ export const NextButton: React.FunctionComponent<Props> = ({
     return (
       <>
         <Tooltip anchorSelect="#NextID">
-          {t(NEXT_BUTTON_TOOLTIP[currentStep])}
+          <span data-testid="next-button-tooltip">
+            {t(NEXT_BUTTON_TOOLTIP[currentStep])}
+          </span>
         </Tooltip>
 
         <StepperButton

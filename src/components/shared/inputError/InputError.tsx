@@ -16,5 +16,5 @@ const ErrorText = styled.p`
 export const FormInputError: React.FunctionComponent<Props> = ({ error }) => {
   const { t } = useTranslation();
 
-  return <ErrorText>{t(error)}</ErrorText>;
+  return <ErrorText data-testid="input-error">{t(error)}</ErrorText>;
 };
