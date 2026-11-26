@@ -129,25 +129,28 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
 
       <WelcomeSubtitle>{t("confirmation.bookingConfirmed")}</WelcomeSubtitle>
 
-      <BookingIdBadge>{bookingId}</BookingIdBadge>
+      <BookingIdBadge data-testid="confirmation-booking-id">
+        {bookingId}
+      </BookingIdBadge>
 
       <SectionTitle>{t("confirmation.attendee")}</SectionTitle>
 
       <Row>
         <Label>{t("confirmation.name")}</Label>
-        <Value>
+
+        <Value data-testid="confirmation-name">
           {attendee.firstName} {attendee.lastName}
         </Value>
       </Row>
 
       <Row>
         <Label>{t("confirmation.email")}</Label>
-        <Value>{attendee.email}</Value>
+        <Value data-testid="confirmation-email">{attendee.email}</Value>
       </Row>
 
       <Row>
         <Label>{t("confirmation.phone")}</Label>
-        <Value>{attendee.phone}</Value>
+        <Value data-testid="confirmation-phone">{attendee.phone}</Value>
       </Row>
 
       <Divider />
@@ -156,27 +159,31 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
 
       <Row>
         <Label>{t("confirmation.event")}</Label>
-        <Value>{selectedEvent?.name}</Value>
+        <Value data-testid="confirmation-event">{selectedEvent?.name}</Value>
       </Row>
 
       <Row>
         <Label>{t("confirmation.dates")}</Label>
-        <Value>{selectedEvent?.dateRange}</Value>
+        <Value data-testid="confirmation-dates">
+          {selectedEvent?.dateRange}
+        </Value>
       </Row>
 
       <Row>
         <Label>{t("confirmation.tier")}</Label>
-        <Value>{selectedTier?.name}</Value>
+        <Value data-testid="confirmation-tier">{selectedTier?.name}</Value>
       </Row>
 
       <Row>
         <Label>{t("confirmation.tierPrice")}</Label>
-        <Value>€{selectedTier?.price}.00</Value>
+        <Value data-testid="confirmation-tier-price">
+          €{selectedTier?.price}.00
+        </Value>
       </Row>
 
       <Row>
         <Label>{t("confirmation.quantity")}</Label>
-        <Value>{order.quantity}</Value>
+        <Value data-testid="confirmation-quantity">{order.quantity}</Value>
       </Row>
 
       {selectedAddons.length > 0 && (
@@ -186,7 +193,7 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
           <SectionTitle>{t("confirmation.addons")}</SectionTitle>
 
           {selectedAddons.map((addon) => (
-            <Row key={addon.id}>
+            <Row data-testid="confirmation-addon" key={addon.id}>
               <Label>{t(`addons.${addon.id}.name`)}</Label>
               <Value>€{addon.price}.00</Value>
             </Row>
@@ -198,7 +205,9 @@ export const ConfirmationScreen: React.FunctionComponent<Props> = ({
 
       <TotalRow>
         <TotalLabel>{t("confirmation.totalPaid")}</TotalLabel>
-        <TotalPrice>€{totalPrice}.00</TotalPrice>
+        <TotalPrice data-testid="confirmation-total">
+          €{totalPrice}.00
+        </TotalPrice>
       </TotalRow>
 
       <StepperButton
