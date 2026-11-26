@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { CheckoutModal } from "../../src/components/shared/checkoutModal/CheckoutModal";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("CheckoutModal", () => {
   describe("visibility", () => {
