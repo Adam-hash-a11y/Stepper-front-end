@@ -48,15 +48,13 @@ export const Footer: React.FunctionComponent = () => {
   const { t } = useTranslation();
 
   return (
-    <FooterWrapper>
+    <FooterWrapper data-testid="footer">
       <Logo>Voltage</Logo>
-
       <Links>
-        <LinkItem>{t("footer.terms")}</LinkItem>
-        <LinkItem>{t("footer.privacy")}</LinkItem>
-        <LinkItem>{t("footer.support")}</LinkItem>
+        <LinkItem data-testid="footer-link">{t("footer.terms")}</LinkItem>
+        <LinkItem data-testid="footer-link">{t("footer.privacy")}</LinkItem>
+        <LinkItem data-testid="footer-link">{t("footer.support")}</LinkItem>
       </Links>
-
       <Copyright>{t("footer.copyright")}</Copyright>
     </FooterWrapper>
   );
