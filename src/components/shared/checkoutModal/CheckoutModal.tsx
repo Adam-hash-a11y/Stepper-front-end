@@ -67,8 +67,10 @@ export const CheckoutModal: React.FunctionComponent<Props> = ({
 
   return (
     <Overlay>
-      <ModalBox>
-        <ConfirmText>{t("checkoutModal.confirmText")}</ConfirmText>
+      <ModalBox data-testid="checkout-modal">
+        <ConfirmText data-testid="checkout-modal-confirm-text">
+          {t("checkoutModal.confirmText")}
+        </ConfirmText>
         {children}
       </ModalBox>
     </Overlay>

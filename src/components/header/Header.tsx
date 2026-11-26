@@ -187,11 +187,13 @@ export const Header: React.FunctionComponent = () => {
       <Logo to="/">Voltage</Logo>
 
       <Nav>
-        <NavItem to="/" end>
+        <NavItem data-testid="header-nav-link" to="/" end>
           {t("header.home")}
         </NavItem>
 
-        <NavItem to="/booking">{t("header.booking")}</NavItem>
+        <NavItem data-testid="header-nav-link" to="/booking">
+          {t("header.booking")}
+        </NavItem>
 
         <NavSpan>{t("header.festivals")}</NavSpan>
 
@@ -201,7 +203,11 @@ export const Header: React.FunctionComponent = () => {
       </Nav>
 
       <LanguageWrapper>
-        <LanguageButton type="button" onClick={() => setIsOpen(!isOpen)}>
+        <LanguageButton
+          data-testid="header-language-button"
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {language === "fr" && <FR />}
           {language === "de" && <DE />}
           {language === "en" && <GB />}
@@ -212,6 +218,7 @@ export const Header: React.FunctionComponent = () => {
           <Dropdown>
             <LanguageOption
               type="button"
+              data-testid="header-language-option"
               $active={language === "en"}
               onClick={() => handleLanguageChange("en")}
             >
@@ -221,6 +228,7 @@ export const Header: React.FunctionComponent = () => {
 
             <LanguageOption
               type="button"
+              data-testid="header-language-option"
               $active={language === "fr"}
               onClick={() => handleLanguageChange("fr")}
             >
@@ -230,6 +238,7 @@ export const Header: React.FunctionComponent = () => {
 
             <LanguageOption
               type="button"
+              data-testid="header-language-option"
               $active={language === "de"}
               onClick={() => handleLanguageChange("de")}
             >
