@@ -74,43 +74,87 @@ export const ProgressBar: React.FunctionComponent<Props> = ({ step }) => {
   return (
     <List>
       <Item>
-        <Circle active={step === 1} done={step > 1}>
+        <Circle
+          data-testid="progress-bar-circle"
+          active={step === 1}
+          done={step > 1}
+        >
           1
         </Circle>
-        <Label active={step === 1} done={step > 1}>
+        <Label
+          data-testid="progress-bar-label"
+          active={step === 1}
+          done={step > 1}
+        >
           {t("progressBar.personalInfo")}
         </Label>
       </Item>
 
-      <Line active={step === 2} done={step > 2} />
+      <Line
+        data-testid="progress-bar-line"
+        active={step === 2}
+        done={step > 2}
+      />
 
       <Item>
-        <Circle active={step === 2} done={step > 2}>
+        <Circle
+          data-testid="progress-bar-circle"
+          active={step === 2}
+          done={step > 2}
+        >
           2
         </Circle>
-        <Label active={step === 2} done={step > 2}>
+        <Label
+          data-testid="progress-bar-label"
+          active={step === 2}
+          done={step > 2}
+        >
           {t("progressBar.contact")}
         </Label>
       </Item>
 
-      <Line active={step === 3} done={step > 3} />
+      <Line
+        data-testid="progress-bar-line"
+        active={step === 3}
+        done={step > 3}
+      />
 
       <Item>
-        <Circle active={step === 3} done={step > 3}>
+        <Circle
+          data-testid="progress-bar-circle"
+          active={step === 3}
+          done={step > 3}
+        >
           3
         </Circle>
-        <Label active={step === 3} done={step > 3}>
+        <Label
+          data-testid="progress-bar-label"
+          active={step === 3}
+          done={step > 3}
+        >
           {t("progressBar.eventTier")}
         </Label>
       </Item>
 
-      <Line active={step === 4} done={step > 4} />
+      <Line
+        data-testid="progress-bar-line"
+        active={step === 4}
+        done={step > 4}
+      />
 
       <Item>
-        <Circle active={step === 4} done={step > 4}>
+        <Circle
+          data-testid="progress-bar-circle"
+          active={step === 4}
+          done={step > 4}
+        >
           4
         </Circle>
-        <Label active={step === 4} done={step > 4}>
+        <Label
+          data-testid="progress-bar-label"
+          active={step === 4}
+          done={step > 4}
+        >
           {t("progressBar.order")}
         </Label>
       </Item>
