@@ -124,6 +124,7 @@ export const StepperInput: React.FunctionComponent<Props> = ({
       </StyledLabel>
       <InputWrapper>
         <StyledInput
+          data-testid="stepper-field-input"
           name={name}
           type={type}
           value={value}
@@ -133,8 +134,18 @@ export const StepperInput: React.FunctionComponent<Props> = ({
           onChange={handleFiledChange}
           onBlur={handleBlur}
         />
-        {variant === "success" && <SuccessIcon aria-hidden="true" />}
-        {variant === "error" && <ErrorIcon aria-hidden="true" />}
+        {variant === "success" && (
+          <SuccessIcon
+            aria-hidden="true"
+            data-testid="stepper-field-success-icon"
+          />
+        )}
+        {variant === "error" && (
+          <ErrorIcon
+            aria-hidden="true"
+            data-testid="stepper-field-error-icon"
+          />
+        )}
       </InputWrapper>
     </Field>
   );
