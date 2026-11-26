@@ -107,7 +107,7 @@ export const HomePage: React.FunctionComponent = () => {
 
         <Subtext>{t("home.subtitle")}</Subtext>
 
-        <BookButton to="/booking">
+        <BookButton data-testid="home-book-now" to="/booking">
           {t("home.bookNow")} <FaArrowRight />
         </BookButton>
       </Content>
