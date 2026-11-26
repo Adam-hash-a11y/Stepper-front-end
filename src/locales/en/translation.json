@@ -104,8 +104,9 @@
     "firstName": "First name must be at least 3 characters",
     "lastName": "Last name must be at least 3 characters",
     "email": "Email must be valid",
-    "phone": "Phone number must be at least 8 characters",
-    "quantity": "Quantity must be at least 1"
+    "phone": "Phone number must have at least 8 digits",
+    "quantity": "Quantity must be at least 1",
+    "quantityMax": "Not enough spots left for this quantity"
   },
   "nextButton": {
     "label": "Next",

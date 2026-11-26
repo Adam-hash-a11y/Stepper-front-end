@@ -127,7 +127,7 @@ export const OrderStep: React.FunctionComponent<Props> = ({
         placeholder={t("order.quantityPlaceholder")}
         label={t("order.quantityLabel")}
         id="QuantityID"
-        value={order.quantity}
+        value={order.quantity === 0 ? "" : order.quantity}
         handleBlur={handleBlur}
         error={errors.quantity}
         touched={touched.quantity}
