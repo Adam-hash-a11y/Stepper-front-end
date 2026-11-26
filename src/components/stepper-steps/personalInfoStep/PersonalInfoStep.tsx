@@ -27,7 +27,9 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
   return (
     <>
       <Tooltip anchorSelect="#FirstNameID" place="top">
-        {t("personalInfo.firstNameTooltip")}
+        <span data-testid="personal-info-first-name-tooltip">
+          {t("personalInfo.firstNameTooltip")}
+        </span>{" "}
       </Tooltip>
 
       <InfoCallout text={t("personalInfo.info")} />
@@ -50,7 +52,9 @@ export const PersonalInfoStep: React.FunctionComponent<Props> = ({
       )}
 
       <Tooltip anchorSelect="#LastNameID" place="top">
-        {t("personalInfo.lastNameTooltip")}
+        <span data-testid="personal-info-last-name-tooltip">
+          {t("personalInfo.lastNameTooltip")}
+        </span>
       </Tooltip>
 
       <StepperInput
