@@ -104,8 +104,9 @@
     "firstName": "Der Vorname muss mindestens 3 Zeichen lang sein",
     "lastName": "Der Nachname muss mindestens 3 Zeichen lang sein",
     "email": "Die E-Mail-Adresse muss gültig sein",
-    "phone": "Die Telefonnummer muss mindestens 8 Zeichen lang sein",
-    "quantity": "Die Anzahl muss mindestens 1 betragen"
+    "phone": "Die Telefonnummer muss mindestens 8 Ziffern enthalten",
+    "quantity": "Die Anzahl muss mindestens 1 betragen",
+    "quantityMax": "Nicht genügend Plätze für diese Anzahl"
   },
   "nextButton": {
     "label": "Weiter",
