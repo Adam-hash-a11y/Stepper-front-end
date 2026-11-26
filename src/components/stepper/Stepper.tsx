@@ -242,7 +242,9 @@ export const Stepper: React.FunctionComponent = () => {
               <>
                 {state.disabled && (
                   <Tooltip anchorSelect="#CheckoutID">
-                    {t("stepper.checkoutTooltip")}
+                    <span data-testid="stepper-checkout-tooltip">
+                      {t("stepper.checkoutTooltip")}
+                    </span>
                   </Tooltip>
                 )}
 
