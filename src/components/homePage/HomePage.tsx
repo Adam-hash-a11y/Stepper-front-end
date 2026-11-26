@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import heroImage from "../../assets/Voltage-hero.png";
 
 const Hero = styled.section`
   position: relative;
@@ -13,7 +14,7 @@ const Hero = styled.section`
   box-sizing: border-box;
   overflow: hidden;
   background-color: #000000;
-  background-image: url("/src/assets/Voltage-hero.png");
+  background-image: url("${heroImage}");
   background-size: cover;
   background-position: center;
 `;
