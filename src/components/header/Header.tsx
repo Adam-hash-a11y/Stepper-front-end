@@ -194,12 +194,6 @@ export const Header: React.FunctionComponent = () => {
         <NavItem data-testid="header-nav-link" to="/booking">
           {t("header.booking")}
         </NavItem>
-
-        <NavSpan>{t("header.festivals")}</NavSpan>
-
-        <NavSpan>{t("header.info")}</NavSpan>
-
-        <NavSpan>{t("header.account")}</NavSpan>
       </Nav>
 
       <LanguageWrapper>
