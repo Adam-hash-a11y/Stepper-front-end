@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   error: string;
@@ -13,5 +14,7 @@ const ErrorText = styled.p`
 `;
 
 export const FormInputError: React.FunctionComponent<Props> = ({ error }) => {
-  return <ErrorText>{error}</ErrorText>;
+  const { t } = useTranslation();
+
+  return <ErrorText>{t(error)}</ErrorText>;
 };
