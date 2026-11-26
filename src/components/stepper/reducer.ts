@@ -268,23 +268,42 @@ export const initialState: State = {
   disabled: true,
   submitted: false,
 };
+const getQuantityError = (state: State) => {
+  const selectedEvent = state.events.find(
+    (event) => event.id === state.selection.eventId,
+  );
+  const selectedTier = selectedEvent?.tiers.find(
+    (tier) => tier.id === state.selection.tierId,
+  );
+
+  return isValidQuantity(
+    Number(state.order.quantity),
+    selectedTier?.remaining ?? 0,
+  );
+};
+
 export const stepperReducer = (state: State, action: Action) => {
   switch (action.type) {
     case SET_ATTENDEE_FIELD: {
+      const value =
+        action.payload.name === "phone"
+          ? action.payload.value.replace(/[^0-9+ ]/g, "")
+          : action.payload.value;
+
       const newState = {
         ...state,
         attendee: {
           ...state.attendee,
-          [action.payload.name]: action.payload.value,
+          [action.payload.name]: value,
         },
       };
 
       const newErrors = {
         ...state.errors,
-        firstName: isValidFirstName(newState.attendee.firstName, t),
-        lastName: isValidLastName(newState.attendee.lastName, t),
-        email: isValidEmail(newState.attendee.email, t),
-        phone: isValidPhoneNumber(newState.attendee.phone, t),
+        firstName: isValidFirstName(newState.attendee.firstName),
+        lastName: isValidLastName(newState.attendee.lastName),
+        email: isValidEmail(newState.attendee.email),
+        phone: isValidPhoneNumber(newState.attendee.phone),
       };
 
       return {
@@ -307,7 +326,7 @@ export const stepperReducer = (state: State, action: Action) => {
 
       const newErrors = {
         ...state.errors,
-        quantity: isValidQuantity(Number(newState.order.quantity), t),
+        quantity: getQuantityError(newState),
       };
 
       return {
@@ -356,6 +375,7 @@ export const stepperReducer = (state: State, action: Action) => {
       const newStep = state.currentStep + 1;
       return {
         ...state,
+        errors: { ...state.errors, quantity: getQuantityError(state) },
         currentStep: newStep,
         disabled:
           newStep === 1
@@ -366,7 +386,7 @@ export const stepperReducer = (state: State, action: Action) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? isValidQuantity(Number(state.order.quantity), t) !== ""
+                  ? getQuantityError(state) !== ""
                   : false,
       };
     }
@@ -387,7 +407,7 @@ export const stepperReducer = (state: State, action: Action) => {
                 ? state.selection.eventId === "" ||
                   state.selection.tierId === ""
                 : newStep === 4
-                  ? isValidQuantity(Number(state.order.quantity), t) !== ""
+                  ? getQuantityError(state) !== ""
                   : false,
       };
     }
@@ -410,23 +430,23 @@ export const stepperReducer = (state: State, action: Action) => {
 
       switch (action.field) {
         case "firstName":
-          newErrors.firstName = isValidFirstName(state.attendee.firstName, t);
+          newErrors.firstName = isValidFirstName(state.attendee.firstName);
           break;
 
         case "lastName":
-          newErrors.lastName = isValidLastName(state.attendee.lastName, t);
+          newErrors.lastName = isValidLastName(state.attendee.lastName);
           break;
 
         case "email":
-          newErrors.email = isValidEmail(state.attendee.email, t);
+          newErrors.email = isValidEmail(state.attendee.email);
           break;
 
         case "phone":
-          newErrors.phone = isValidPhoneNumber(state.attendee.phone, t);
+          newErrors.phone = isValidPhoneNumber(state.attendee.phone);
           break;
 
         case "quantity":
-          newErrors.quantity = isValidQuantity(Number(state.order.quantity), t);
+          newErrors.quantity = getQuantityError(state);
           break;
       }
 
