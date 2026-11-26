@@ -1,51 +1,38 @@
-import { FormInputError } from "../../src/components/shared/inputError/InputError";
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { act, cleanup, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
+import i18n from "i18next";
+import { FormInputError } from "../../src/components/shared/inputError/InputError";
 
 describe("FormInputError", () => {
-  it("should render the error message", () => {
-    //ARRANGE
-    render(<FormInputError error="First name is required" />);
-
-    //ACT
-    const message = screen.getByText("First name is required");
-
-    //ASSERT
-    expect(message).toBeInTheDocument();
+  afterEach(async () => {
+    cleanup();
+    await i18n.changeLanguage("en");
   });
 
-  it("should render the error inside a paragraph", () => {
-    //ARRANGE
-    render(<FormInputError error="Invalid email" />);
+  describe("rendering", () => {
+    it("should show the translated error message", () => {
+      //ARRANGE
+      render(<FormInputError error="validation.email" />);
 
-    //ACT
-    const message = screen.getByText("Invalid email");
+      //ACT
+      const message = screen.getByTestId("input-error");
 
-    //ASSERT
-    expect(message.tagName).toBe("P");
-  });
+      //ASSERT
+      expect(message).toHaveTextContent("Email must be valid");
+    });
 
-  it("should apply the red error color", () => {
-    //ARRANGE
-    render(<FormInputError error="Invalid email" />);
+    it("should translate the message again when the language changes", async () => {
+      //ARRANGE
+      render(<FormInputError error="validation.email" />);
 
-    //ACT
-    const message = screen.getByText("Invalid email");
+      //ACT
+      await act(() => i18n.changeLanguage("de"));
 
-    //ASSERT
-    expect(message).toHaveStyle({ color: "#dc2626" });
-  });
-
-  it("should update when the error changes", () => {
-    //ARRANGE
-    const { rerender } = render(<FormInputError error="Invalid email" />);
-
-    //ACT
-    rerender(<FormInputError error="Email is required" />);
-
-    //ASSERT
-    expect(screen.getByText("Email is required")).toBeInTheDocument();
-    expect(screen.queryByText("Invalid email")).not.toBeInTheDocument();
+      //ASSERT
+      expect(screen.getByTestId("input-error")).toHaveTextContent(
+        "Die E-Mail-Adresse muss gültig sein",
+      );
+    });
   });
 });
