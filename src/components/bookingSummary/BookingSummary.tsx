@@ -125,19 +125,19 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
 
       <Row>
         <Label>{t("bookingSummary.name")}</Label>
-        <Value>
+        <Value data-testid="booking-summary-name">
           {attendee.firstName} {attendee.lastName}
         </Value>
       </Row>
 
       <Row>
         <Label>{t("bookingSummary.email")}</Label>
-        <Value>{attendee.email}</Value>
+        <Value data-testid="booking-summary-email">{attendee.email}</Value>
       </Row>
 
       <Row>
         <Label>{t("bookingSummary.phone")}</Label>
-        <Value>{attendee.phone}</Value>
+        <Value data-testid="booking-summary-phone">{attendee.phone}</Value>
       </Row>
 
       <Divider />
@@ -146,27 +146,31 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
 
       <Row>
         <Label>{t("bookingSummary.event")}</Label>
-        <Value>{selectedEvent?.name}</Value>
+        <Value data-testid="booking-summary-event">{selectedEvent?.name}</Value>
       </Row>
 
       <Row>
         <Label>{t("bookingSummary.dates")}</Label>
-        <Value>{selectedEvent?.dateRange}</Value>
+        <Value data-testid="booking-summary-dates">
+          {selectedEvent?.dateRange}
+        </Value>
       </Row>
 
       <Row>
         <Label>{t("bookingSummary.tier")}</Label>
-        <Value>{selectedTier?.name}</Value>
+        <Value data-testid="booking-summary-tier">{selectedTier?.name}</Value>
       </Row>
 
       <Row>
         <Label>{t("bookingSummary.tierPrice")}</Label>
-        <Value>€{selectedTier?.price}.00</Value>
+        <Value data-testid="booking-summary-tier-price">
+          €{selectedTier?.price}.00
+        </Value>
       </Row>
 
       <Row>
         <Label>{t("bookingSummary.quantity")}</Label>
-        <Value>{order.quantity}</Value>
+        <Value data-testid="booking-summary-quantity">{order.quantity}</Value>
       </Row>
 
       {selectedAddons.length > 0 && (
@@ -176,7 +180,7 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
           <SectionTitle>{t("bookingSummary.addons")}</SectionTitle>
 
           {selectedAddons.map((addon) => (
-            <Row key={addon.id}>
+            <Row data-testid="booking-summary-addon" key={addon.id}>
               <Label>{t(`addons.${addon.id}.name`)}</Label>
               <Value>€{addon.price}.00</Value>
             </Row>
@@ -188,7 +192,9 @@ export const BookingSummary: React.FunctionComponent<Props> = ({
 
       <TotalRow>
         <TotalLabel>{t("bookingSummary.total")}</TotalLabel>
-        <TotalPrice>€{totalPrice}.00</TotalPrice>
+        <TotalPrice data-testid="booking-summary-total">
+          €{totalPrice}.00
+        </TotalPrice>
       </TotalRow>
 
       <ActionsSpacer />
