@@ -117,7 +117,9 @@ export const OrderStep: React.FunctionComponent<Props> = ({
       <SectionSubtitle>{t("order.ticketQuantitySubtitle")}</SectionSubtitle>
 
       <Tooltip anchorSelect="#QuantityID" place="top">
-        {t("order.quantityTooltip")}
+        <span data-testid="order-quantity-tooltip">
+          {t("order.quantityTooltip")}
+        </span>{" "}
       </Tooltip>
 
       <StepperInput
@@ -145,19 +147,21 @@ export const OrderStep: React.FunctionComponent<Props> = ({
           const checked = order.addons.includes(addon.id);
 
           return (
-            <AddonRow key={addon.id} checked={checked}>
+            <AddonRow
+              data-testid="order-addon-row"
+              key={addon.id}
+              checked={checked}
+            >
               <CheckboxOuter checked={checked}>{checked && "✓"}</CheckboxOuter>
-
               <AddonInfo>
                 <AddonName>{t(`addons.${addon.id}.name`)}</AddonName>
                 <AddonDescription>
                   {t(`addons.${addon.id}.description`)}
                 </AddonDescription>
               </AddonInfo>
-
               <AddonPrice>€{addon.price}.00</AddonPrice>
-
               <HiddenCheckbox
+                data-testid="order-addon-checkbox"
                 type="checkbox"
                 value={addon.id}
                 checked={checked}

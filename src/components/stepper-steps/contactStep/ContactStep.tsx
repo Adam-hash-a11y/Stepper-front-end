@@ -27,7 +27,9 @@ export const ContactStep: React.FunctionComponent<Props> = ({
   return (
     <>
       <Tooltip anchorSelect="#EmailID" place="top">
-        {t("contact.emailTooltip")}
+        <span data-testid="contact-email-tooltip">
+          {t("contact.emailTooltip")}
+        </span>{" "}
       </Tooltip>
 
       <InfoCallout text={t("contact.info")} />
@@ -48,7 +50,9 @@ export const ContactStep: React.FunctionComponent<Props> = ({
       {touched.email && errors.email && <FormInputError error={errors.email} />}
 
       <Tooltip anchorSelect="#PhoneID" place="top">
-        {t("contact.phoneTooltip")}
+        <span data-testid="contact-phone-tooltip">
+          {t("contact.phoneTooltip")}
+        </span>{" "}
       </Tooltip>
 
       <StepperInput

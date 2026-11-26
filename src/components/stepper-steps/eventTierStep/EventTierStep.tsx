@@ -231,6 +231,7 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
 
           return (
             <EventCard
+              data-testid="event-tier-card"
               key={event.id}
               id={event.id}
               onClick={handleEventSelection}
@@ -250,11 +251,15 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
               <LineupLabel>{t("eventTier.lineupAZ")}</LineupLabel>
 
               {event.djs.slice(0, 4).map((dj) => (
-                <DjName key={dj.name}>{dj.name}</DjName>
+                <DjName key={dj.name} data-testid="event-tier-dj">
+                  {dj.name}
+                </DjName>
               ))}
 
               {event.djs.length > 4 && (
-                <MoreTba>+ {t("eventTier.moreTBA")}</MoreTba>
+                <MoreTba data-testid="event-tier-more-tba">
+                  + {t("eventTier.moreTBA")}
+                </MoreTba>
               )}
             </EventCard>
           );
@@ -272,6 +277,7 @@ export const EventTierStep: React.FunctionComponent<Props> = ({
           <TierList>
             {selectedEvent.tiers.map((tier) => (
               <TierRow
+                data-testid="event-tier-pass"
                 key={tier.id}
                 id={tier.id}
                 onClick={handleTierSelection}
