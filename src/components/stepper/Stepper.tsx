@@ -66,10 +66,7 @@ export const Stepper: React.FunctionComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  console.log(state);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(state);
     dispatch({
       type: SET_ATTENDEE_FIELD,
       payload: {
